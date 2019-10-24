@@ -2,6 +2,8 @@ package com.wecode.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,21 +17,22 @@ public class Task {
 
     private Integer status;
 @ManyToOne
-private Project projet ;
+@JsonIgnoreProperties("tasks")
+private Project project ;
 
-    public Project getProjet() {
-        return projet;
+    public Project getProject() {
+        return project;
     }
 
-    public void setProjet(Project projet) {
-        this.projet = projet;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
-    public Task(String label, String description, Integer status, Project projet) {
+    public Task(String label, String description, Integer status, Project project) {
         this.label = label;
         this.description = description;
         this.status = status;
-        this.projet = projet;
+        this.project = project;
     }
 
     public Task() {
