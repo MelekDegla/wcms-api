@@ -4,6 +4,7 @@ import com.wecode.entity.User;
 import com.wecode.entity.dto.UserDto;
 import com.wecode.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     //@Secured({"ROLE_ADMIN", "ROLE_USER"})
-//    @PreAuthorize("hasRole('ADMIN')")
+   @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/users", method = RequestMethod.GET)
     public List<User> listUser(){
         return userService.findAll();
