@@ -23,8 +23,8 @@ public class Role {
             @JoinColumn(name = "USER_ID") })
     private List<Role> users = new ArrayList<>();
 
-    public Role(Long i, String s, String s1) {
-        id = i;
+    public Role( String s, String s1) {
+
         name = s;
         description= s1;
     }

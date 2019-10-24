@@ -1,5 +1,6 @@
 package com.wecode.service.impl;
 
+import com.wecode.repository.RoleRepository;
 import com.wecode.repository.UserRepository;
 import com.wecode.entity.Role;
 import com.wecode.entity.User;
@@ -21,6 +22,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptEncoder;
@@ -72,7 +75,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		newUser.setAge(user.getAge());
 		newUser.setSalary(user.getSalary());
 
-		newUser.getRoles().add(new Role(4L, null, null));
+		newUser.getRoles().add(roleRepository.findByName("ADMIN"));
         return userRepository.save(newUser);
     }
 }
