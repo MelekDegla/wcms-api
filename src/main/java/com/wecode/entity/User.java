@@ -1,6 +1,7 @@
 package com.wecode.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,8 +28,16 @@ public class User {
     @JoinTable(name = "USER_ROLES", joinColumns = {
             @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
             @JoinColumn(name = "ROLE_ID") })
-    private List<Role> roles = new ArrayList<>();
 
+    private List<Role> roles = new ArrayList<>();
+@ManyToMany
+    @JoinTable (
+            name ="user_project" ,
+            joinColumns = @JoinColumn(name= "user_id") ,
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    @JsonIgnoreProperties("user")
+    private List<Project> projects ;
     public long getId() {
         return id;
     }
