@@ -26,4 +26,8 @@ public class Project {
     @JsonIgnoreProperties("Project")
     private List<User> users ;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+    @JsonIgnoreProperties("project")
+    private List<Task> tasks;
+
 }
