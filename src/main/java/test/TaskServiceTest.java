@@ -1,0 +1,88 @@
+package test;
+
+import com.wecode.entity.Project;
+import com.wecode.entity.Task;
+import com.wecode.repository.TaskRepository;
+import com.wecode.service.TaskService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
+
+class TaskServiceTest {
+    Task task;
+
+
+    @InjectMocks
+    TaskService taskService;
+
+    @Mock
+    TaskRepository taskRepository;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        task = new Task();
+        task.setDescription("Test Task");
+        task.setLabel("Test");
+        task.setStatus(1);
+        task.setProject(new Project());
+    }
+
+    @Test
+    void findAll() {
+        List<Task> list = taskService.findAll();
+        assertNotNull(list);
+    }
+
+    @Test
+    void save() {
+        when (taskRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(task));
+
+        taskRepository.save(task);
+        assertNotNull(task.getLabel());
+
+
+        Task ts = taskService.findById(task.getId());
+
+        assertEquals(ts.getDescription(), task.getDescription());
+    }
+
+    @Test
+    void update() {
+        String newLabel= "Update Test";
+        String oldLabel  = task.getLabel();
+        task.setLabel(newLabel);
+
+        when (taskRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(task));
+        Task ts = taskService.findById(task.getId());
+        assertEquals(ts.getLabel(), newLabel);
+    }
+
+    @Test
+    void findById() {
+        when (taskRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(task));
+        Task ts = taskService.findById(task.getId());
+        assertNotNull(ts);
+        assertEquals(ts.getDescription(), task.getDescription());
+    }
+
+    @Test
+    void deleteById() {
+        long taskId=42;
+
+        taskService.deleteById(taskId);
+
+        verify(taskRepository, times(1)).deleteById(eq(taskId));
+    }
+}
