@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@AllArgsConstructor @NoArgsConstructor @ToString @Data
+ @NoArgsConstructor @ToString @Data
 public class Project {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class Project {
     @ManyToMany
     @JoinTable (
             name ="user_project" ,
-            joinColumns = @JoinColumn(name= "project_id") ,
+            joinColumns =    @JoinColumn(name= "project_id") ,
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     @JsonIgnoreProperties("Project")
@@ -30,4 +30,8 @@ public class Project {
     @JsonIgnoreProperties("project")
     private List<Task> tasks;
 
+    public Project(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jws.WebService;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -24,7 +25,6 @@ public class UserController {
         return userService.findAll();
     }
 
-
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public User getOne(@PathVariable(value = "id") Long id){
         return userService.findById(id);
@@ -36,10 +36,22 @@ public class UserController {
         return userService.save(user);
     }
 
-    @RequestMapping(value = "auth", method = RequestMethod.GET)
-    public String getUserByAuth(){
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+    @RequestMapping(value = "/auth", method = RequestMethod.GET)
+    public User getUserByAuth(){
+        return userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName());
     }
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable Long id){
+
+         userService.delete(id);
+    }
+
+    @RequestMapping(value="/users", method = RequestMethod.PUT)
+    public User saveUser(@RequestBody User user){
+
+       return userService.update(user);
+    }
+
 
 
 }

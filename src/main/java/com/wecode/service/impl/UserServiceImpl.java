@@ -70,12 +70,27 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	@Override
     public User save(UserDto user) {
 	    User newUser = new User();
+		if(user.getId() != null)
+	    newUser.setId(user.getId());
+
 	    newUser.setUsername(user.getUsername());
 	    newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-		newUser.setAge(user.getAge());
 		newUser.setSalary(user.getSalary());
+		newUser.setBirthdate(user.getBirthdate());
+		newUser.setEmail(user.getEmail());
+		newUser.setAddress(user.getAddress());
+		newUser.setCin(user.getCin());
+		newUser.setLeaveBalance(user.getLeaveBalance());
+		if( user.getRoles() != null)
+		for (String role: user.getRoles()) {
+			newUser.getRoles().add(roleRepository.findByName(role));
+		}
 
-		newUser.getRoles().add(roleRepository.findByName("ADMIN"));
-        return userRepository.save(newUser);
+		return userRepository.save(newUser);
     }
+
+    public User update(User user){
+		user.setPassword(bcryptEncoder.encode(user.getPassword()));
+		return userRepository.save(user);
+	}
 }

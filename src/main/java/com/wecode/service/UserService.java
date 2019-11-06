@@ -11,6 +11,6 @@ public interface UserService {
     List<User> findAll();
     void delete(long id);
     User findOne(String username);
-
+    User update(User user);
     User findById(Long id);
 }

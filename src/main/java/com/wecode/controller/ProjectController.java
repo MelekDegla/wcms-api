@@ -3,16 +3,19 @@ package com.wecode.controller;
 import com.wecode.entity.Project;
 import com.wecode.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin("*" +
+        "")
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value="/projects")
     public List<Project> listProject(){
         return projectService.findAll();
