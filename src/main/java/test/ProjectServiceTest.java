@@ -56,6 +56,11 @@ class ProjectServiceTest {
         when (projectRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(project));
         Project pr = projectService.findById(project.getId());
         assertEquals(pr.getName(), newName);
+
+        assertNotNull(pr.getDescription());
+        assertNotNull(pr.getTasks());
+        assertNotNull(pr.getUsers());
+
     }
 
     @Test
@@ -64,11 +69,18 @@ class ProjectServiceTest {
 
         projectRepository.save(project);
         assertNotNull(project.getName());
+        assertNotNull(project.getUsers());
+        assertNotNull(project.getTasks());
+        assertNotNull(project.getDescription());
+
 
 
         Project pr = projectService.findById(project.getId());
 
-        assertEquals(project.getDescription(), project.getDescription());
+        assertEquals(pr.getDescription(), project.getDescription());
+        assertEquals(pr.getName(), project.getName());
+        assertEquals(pr.getTasks(), project.getTasks());
+        assertEquals(pr.getUsers(), project.getUsers());
     }
 
     @Test
@@ -77,6 +89,9 @@ class ProjectServiceTest {
         Project pr = projectService.findById(project.getId());
         assertNotNull(pr);
         assertEquals(pr.getDescription(), project.getDescription());
+        assertEquals(pr.getName(), project.getName());
+        assertEquals(pr.getTasks(), project.getTasks());
+        assertEquals(pr.getUsers(), project.getUsers());
     }
 
     @Test

@@ -52,8 +52,10 @@ class ProjectControllerTest {
         when(projectService.findById(anyLong())).thenReturn(project);
         Project pr = projectController.getOne(project.getId());
         assertNotNull(pr);
-        assertEquals(pr.getName(), pr.getName());
-        assertEquals(pr.getDescription(), pr.getDescription());
+        assertEquals(pr.getDescription(), project.getDescription());
+        assertEquals(pr.getName(), project.getName());
+        assertEquals(pr.getTasks(), project.getTasks());
+        assertEquals(pr.getUsers(), project.getUsers());
     }
 
     @Test
@@ -62,11 +64,17 @@ class ProjectControllerTest {
 
         projectService.save(project);
         assertNotNull(project.getName());
+        assertNotNull(project.getUsers());
+        assertNotNull(project.getTasks());
+        assertNotNull(project.getDescription());
 
 
         Project pr = projectController.getOne(project.getId());
 
-        assertEquals(project.getDescription(), project.getDescription());
+        assertEquals(pr.getDescription(), project.getDescription());
+        assertEquals(pr.getName(), project.getName());
+        assertEquals(pr.getTasks(), project.getTasks());
+        assertEquals(pr.getUsers(), project.getUsers());
     }
 
     @Test
@@ -87,5 +95,10 @@ class ProjectControllerTest {
         when (projectController.getOne(anyLong())).thenReturn(project);
         Project pr = projectService.findById(project.getId());
         assertEquals(pr.getName(), newName);
+
+        assertNotNull(pr.getDescription());
+        assertNotNull(pr.getTasks());
+        assertNotNull(pr.getUsers());
+
     }
 }

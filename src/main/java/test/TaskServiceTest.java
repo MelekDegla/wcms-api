@@ -51,11 +51,19 @@ class TaskServiceTest {
 
         taskRepository.save(task);
         assertNotNull(task.getLabel());
+        assertNotNull(task.getDescription());
+        assertNotNull(task.getProject());
+        assertNotNull(task.getStatus());
+
 
 
         Task ts = taskService.findById(task.getId());
 
         assertEquals(ts.getDescription(), task.getDescription());
+        assertEquals(ts.getLabel(), task.getLabel());
+        assertEquals(ts.getId(), task.getId());
+        assertEquals(ts.getProject(), task.getProject());
+        assertEquals(ts.getStatus(), task.getStatus());
     }
 
     @Test
@@ -67,6 +75,10 @@ class TaskServiceTest {
         when (taskRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(task));
         Task ts = taskService.findById(task.getId());
         assertEquals(ts.getLabel(), newLabel);
+
+        assertNotNull(ts.getDescription());
+        assertNotNull(ts.getProject());
+        assertNotNull(ts.getStatus());
     }
 
     @Test
@@ -75,6 +87,10 @@ class TaskServiceTest {
         Task ts = taskService.findById(task.getId());
         assertNotNull(ts);
         assertEquals(ts.getDescription(), task.getDescription());
+        assertEquals(ts.getStatus(), task.getStatus());
+        assertEquals(ts.getProject(), task.getProject());
+        assertEquals(ts.getId(), task.getId());
+        assertEquals(ts.getLabel(), task.getLabel());
     }
 
     @Test
