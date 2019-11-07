@@ -25,18 +25,18 @@ public class UsersSeeder {
             rolesBoth.add("ADMIN");
             rolesBoth.add("USER");
             UserDto user1 = new UserDto(null,"Degla" ,"degla123" ,1150L ,
-                    LocalDate.of(1997, 6, 7),"address" ,30L ,
+                   "1997/6/7","address" ,30L ,
                     "13014570", "melek@gmail.com");
-            user1.setRoles(rolesBoth);
+            user1.setRoles(rolesAdmin);
             userService.save(user1);
 
                     UserDto user2 = new UserDto(null,"Montassar" ,"monta++" ,1150L ,
-                            LocalDate.of(1997, 6, 7),"address" ,30L , "07889877",
+                            "1997/6/7","address" ,30L , "07889877",
                             "tatay@gmail.com");
                     user2.setRoles(rolesAdmin);
                     userService.save(user2);
                     UserDto user3 = new UserDto(null,"wiem" ,"wiemabada" ,1150L ,
-                            LocalDate.of(1997, 6, 7),"address" ,30L ,
+                            "1997/6/7","address" ,30L ,
                             "07898878", "wiem@gmail.com");
                     user3.setRoles(rolesUser);
             userService.save(user3);

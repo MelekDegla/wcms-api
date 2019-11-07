@@ -23,7 +23,7 @@ public class User {
     @Column
     private long salary;
     @Column
-    private LocalDate birthdate;
+    private String birthdate;
 
     private String address;
 
@@ -89,11 +89,11 @@ public class User {
         this.roles = roles;
     }
 
-    public LocalDate getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(LocalDate birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 

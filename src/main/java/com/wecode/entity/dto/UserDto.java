@@ -8,14 +8,14 @@ public class UserDto {
     private String username;
     private String password;
     private long salary;
-    private LocalDate birthdate;
+    private String birthdate;
     private String address;
     private Long leaveBalance;
     private String cin;
     private String email;
     private List<String> roles;
 
-    public UserDto(Long id, String username, String password, long salary, LocalDate birthdate, String address, Long leaveBalance, String cin, String email) {
+    public UserDto(Long id, String username, String password, long salary, String birthdate, String address, Long leaveBalance, String cin, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -59,11 +59,11 @@ public class UserDto {
         this.salary = salary;
     }
 
-    public LocalDate getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(LocalDate birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 

@@ -47,9 +47,8 @@ public class UserController {
     }
 
     @RequestMapping(value="/users", method = RequestMethod.PUT)
-    public User saveUser(@RequestBody User user){
-
-       return userService.update(user);
+    public User modifyUser(@RequestBody UserDto user){
+       return userService.save(user);
     }
 
 
