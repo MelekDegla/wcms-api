@@ -35,6 +35,7 @@ class TaskControllerTest {
         task = new Task();
         task.setDescription("Test Task");
         task.setLabel("Test");
+        assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
         task.setStatus(1);
         task.setProject(new Project());
     }
@@ -49,6 +50,10 @@ class TaskControllerTest {
     void getOne() {
         when(taskService.findById(anyLong())).thenReturn(task);
         Task ts = taskController.getOne(task.getId());
+
+        assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
+        assert ts.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
+
         assertNotNull(ts);
         assertNotNull(ts);
         assertEquals(ts.getDescription(), task.getDescription());
@@ -62,6 +67,8 @@ class TaskControllerTest {
     void saveTask() {
         when (taskService.findById(anyLong())).thenReturn(task);
 
+        assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
+
         taskService.save(task);
         assertNotNull(task.getLabel());
         assertNotNull(task.getDescription());
@@ -70,6 +77,8 @@ class TaskControllerTest {
 
 
         Task ts = taskController.getOne(task.getId());
+
+        assert ts.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
 
         assertEquals(ts.getDescription(), task.getDescription());
         assertEquals(ts.getLabel(), task.getLabel());
@@ -86,6 +95,10 @@ class TaskControllerTest {
 
         when (taskController.getOne(anyLong())).thenReturn(task);
         Task ts = taskService.findById(task.getId());
+
+        assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
+        assert ts.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
+
         assertEquals(ts.getLabel(), newLabel);
 
         assertNotNull(ts.getDescription());

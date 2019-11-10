@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,8 +36,20 @@ class UserControllerTest {
         user = new User();
         user.setUsername("We Code");
         user.setPassword("123456");
-        user.setAge(21);
+        user.setBirthdate(LocalDate.of(1998, 1, 20));
         user.setSalary(1000);
+        user.setCin("15009308");
+        user.setEmail("karim@gmail.com");
+        user.setLeaveBalance((long)0);
+
+        assertNotNull(user.getUsername());
+        assertNotNull(user.getPassword());
+        assertNotNull(user.getBirthdate());
+        assertNotNull(user.getCin());
+        assertNotNull(user.getEmail());
+
+        assert user.getUsername().length() >=3 : "Username Length Should Be At Least 3!";
+        assert user.getPassword().length() >=6 : "Password Length Should Be At Least 3!";
     }
 
 
@@ -51,8 +64,9 @@ class UserControllerTest {
         when(userService.findById(anyLong())).thenReturn(user);
         User us = userController.getOne(user.getId());
         assertNotNull(us);
-        assertEquals(us.getPassword(), user.getPassword());
-        assertEquals(us.getAge(), user.getAge());
+        assertNotNull(us);
+
+        asserts(us, user);
 
     }
 
@@ -60,7 +74,7 @@ class UserControllerTest {
     void saveUser() {
         when (userService.findById(anyLong())).thenReturn(user);
         UserDto userDto = new UserDto();
-        userDto.setAge(user.getAge());
+        userDto.setBirthdate(user.getBirthdate());
         userDto.setPassword(user.getPassword());
         userDto.setSalary((int) user.getSalary());
         userDto.setUsername(user.getUsername());
@@ -71,10 +85,26 @@ class UserControllerTest {
 
         User us = userController.getOne(user.getId());
 
-        assertEquals(user.getUsername(), us.getUsername());
-        assertEquals(user.getPassword(), us.getPassword());
-        assertEquals(user.getAge(), us.getAge());
-        assertEquals(user.getSalary(), us.getSalary());
+        assertNotNull(us);
+
+        asserts(us, user);
+    }
+
+    private void asserts(User us, User user) {
+        assertNotNull(us);
+        assertEquals(us.getPassword(), user.getPassword());
+        assertEquals(us.getBirthdate(), user.getBirthdate());
+        assertEquals(us.getSalary(), user.getSalary());
+        assertEquals(us.getUsername(), user.getUsername());
+        assertEquals(us.getRoles(), user.getRoles());
+        assertEquals(us.getAddress(), user.getAddress());
+        assertEquals(us.getCin(), user.getCin());
+        assertEquals(us.getEmail(), user.getEmail());
+        assertEquals(us.getLeaveBalance(), user.getLeaveBalance());
+
+        assert user.getUsername().length() >=3 : "Username Length Should Be At Least 3!";
+        assert us.getPassword().length() >=6 : "Password Length Should Be At Least 3!";
+
     }
 
 

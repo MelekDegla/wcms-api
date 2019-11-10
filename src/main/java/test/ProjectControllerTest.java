@@ -39,6 +39,9 @@ class ProjectControllerTest {
         project.setName("Test");
         project.setTasks(new ArrayList<Task>());
         project.setUsers(new ArrayList<User>());
+
+        assert project.getName().length() >=3 : "Project Name Length Should Be At Least 3 !";
+        assert project.getDescription().length() >=3 : "Project Description Length Should Be At Least 3 !";
     }
 
     @Test
@@ -52,10 +55,8 @@ class ProjectControllerTest {
         when(projectService.findById(anyLong())).thenReturn(project);
         Project pr = projectController.getOne(project.getId());
         assertNotNull(pr);
-        assertEquals(pr.getDescription(), project.getDescription());
-        assertEquals(pr.getName(), project.getName());
-        assertEquals(pr.getTasks(), project.getTasks());
-        assertEquals(pr.getUsers(), project.getUsers());
+
+        asserts(project, pr);
     }
 
     @Test
@@ -70,11 +71,9 @@ class ProjectControllerTest {
 
 
         Project pr = projectController.getOne(project.getId());
+        assertNotNull(pr);
 
-        assertEquals(pr.getDescription(), project.getDescription());
-        assertEquals(pr.getName(), project.getName());
-        assertEquals(pr.getTasks(), project.getTasks());
-        assertEquals(pr.getUsers(), project.getUsers());
+        asserts(project, pr);
     }
 
     @Test
@@ -94,11 +93,22 @@ class ProjectControllerTest {
 
         when (projectController.getOne(anyLong())).thenReturn(project);
         Project pr = projectService.findById(project.getId());
-        assertEquals(pr.getName(), newName);
+        assertNotNull(pr);
 
-        assertNotNull(pr.getDescription());
-        assertNotNull(pr.getTasks());
-        assertNotNull(pr.getUsers());
+        asserts(project, pr);
 
+    }
+
+    private void asserts(Project project, Project pr)
+    {
+        assertEquals(pr.getDescription(), project.getDescription());
+        assertEquals(pr.getName(), project.getName());
+        assertEquals(pr.getTasks(), project.getTasks());
+        assertEquals(pr.getUsers(), project.getUsers());
+
+        assert pr.getName().length() >=3 : "Project Name Length Should Be at min 3 chars !";
+        assert pr.getDescription().length() >=3 : "Project Description Length Should Be at min 3 chars !";
+        assert project.getName().length() >=3 : "Project Name Length Should Be at min 3 chars !";
+        assert project.getDescription().length() >=3 : "Project Description Length Should Be at min 3 chars !";
     }
 }

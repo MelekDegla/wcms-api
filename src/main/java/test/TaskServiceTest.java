@@ -34,7 +34,8 @@ class TaskServiceTest {
         MockitoAnnotations.initMocks(this);
         task = new Task();
         task.setDescription("Test Task");
-        task.setLabel("Test");
+        task.setLabel("Label");
+        assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
         task.setStatus(1);
         task.setProject(new Project());
     }
@@ -48,7 +49,7 @@ class TaskServiceTest {
     @Test
     void save() {
         when (taskRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(task));
-
+        assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
         taskRepository.save(task);
         assertNotNull(task.getLabel());
         assertNotNull(task.getDescription());
@@ -58,6 +59,9 @@ class TaskServiceTest {
 
 
         Task ts = taskService.findById(task.getId());
+
+        assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
+        assert ts.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
 
         assertEquals(ts.getDescription(), task.getDescription());
         assertEquals(ts.getLabel(), task.getLabel());
@@ -74,6 +78,10 @@ class TaskServiceTest {
 
         when (taskRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(task));
         Task ts = taskService.findById(task.getId());
+
+        assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
+        assert ts.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
+
         assertEquals(ts.getLabel(), newLabel);
 
         assertNotNull(ts.getDescription());
@@ -85,6 +93,10 @@ class TaskServiceTest {
     void findById() {
         when (taskRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(task));
         Task ts = taskService.findById(task.getId());
+
+        assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
+        assert ts.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
+
         assertNotNull(ts);
         assertEquals(ts.getDescription(), task.getDescription());
         assertEquals(ts.getStatus(), task.getStatus());

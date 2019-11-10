@@ -39,6 +39,9 @@ class ProjectServiceTest {
         project.setName("Test");
         project.setTasks(new ArrayList<Task>());
         project.setUsers(new ArrayList<User>());
+
+        assert project.getName().length() >=3 : "Project Name Length Should Be at min 3 chars !";
+        assert project.getDescription().length() >=3 : "Project Description Length Should Be at min 3 chars !";
     }
 
     @Test
@@ -53,13 +56,13 @@ class ProjectServiceTest {
         String oldName  = project.getName();
         project.setName(newName);
 
+        assert project.getName().length() >=3 : "Project Name Length Should Be at min 3 chars !";
+        assert project.getDescription().length() >=3 : "Project Description Length Should Be at min 3 chars !";
+
         when (projectRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(project));
         Project pr = projectService.findById(project.getId());
-        assertEquals(pr.getName(), newName);
 
-        assertNotNull(pr.getDescription());
-        assertNotNull(pr.getTasks());
-        assertNotNull(pr.getUsers());
+        asserts(project, pr);
 
     }
 
@@ -75,12 +78,12 @@ class ProjectServiceTest {
 
 
 
+
         Project pr = projectService.findById(project.getId());
 
-        assertEquals(pr.getDescription(), project.getDescription());
-        assertEquals(pr.getName(), project.getName());
-        assertEquals(pr.getTasks(), project.getTasks());
-        assertEquals(pr.getUsers(), project.getUsers());
+        asserts(project, pr);
+
+
     }
 
     @Test
@@ -88,10 +91,8 @@ class ProjectServiceTest {
         when (projectRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(project));
         Project pr = projectService.findById(project.getId());
         assertNotNull(pr);
-        assertEquals(pr.getDescription(), project.getDescription());
-        assertEquals(pr.getName(), project.getName());
-        assertEquals(pr.getTasks(), project.getTasks());
-        assertEquals(pr.getUsers(), project.getUsers());
+
+        asserts(project, pr);
     }
 
     @Test
@@ -101,5 +102,18 @@ class ProjectServiceTest {
         projectService.deleteById(projectId);
 
         verify(projectRepository, times(1)).deleteById(eq(projectId));
+    }
+
+    private void asserts(Project project, Project pr)
+    {
+        assertEquals(pr.getDescription(), project.getDescription());
+        assertEquals(pr.getName(), project.getName());
+        assertEquals(pr.getTasks(), project.getTasks());
+        assertEquals(pr.getUsers(), project.getUsers());
+
+        assert pr.getName().length() >=3 : "Project Name Length Should Be at min 3 chars !";
+        assert pr.getDescription().length() >=3 : "Project Description Length Should Be at min 3 chars !";
+        assert project.getName().length() >=3 : "Project Name Length Should Be at min 3 chars !";
+        assert project.getDescription().length() >=3 : "Project Description Length Should Be at min 3 chars !";
     }
 }

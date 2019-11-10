@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	    User newUser = new User();
 	    newUser.setUsername(user.getUsername());
 	    newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-		newUser.setAge(user.getAge());
+		newUser.setBirthdate(user.getBirthdate());
 		newUser.setSalary(user.getSalary());
 
 		newUser.getRoles().add(roleRepository.findByName("ADMIN"));

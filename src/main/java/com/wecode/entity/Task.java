@@ -3,18 +3,26 @@ package com.wecode.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
-public class Task {
+public class Task  {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
 
+    @NotNull
+    @Size(min= 3, message = "Task Label Length Should Be at min 3 chars !")
     private String label;
     private String description;
 
+    @NotNull
     private Integer status;
 @ManyToOne
 @JsonIgnoreProperties("tasks")
@@ -69,4 +77,5 @@ private Project project ;
     public void setStatus(Integer status) {
         this.status = status;
     }
+
 }
