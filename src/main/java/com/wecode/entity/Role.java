@@ -16,6 +16,8 @@ public class Role {
 
     @Column
     private String description;
+    @Column
+    private String test;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "USER_ROLES", joinColumns = {

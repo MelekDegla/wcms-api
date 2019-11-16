@@ -16,6 +16,7 @@ public class RoleSeeder {
         if(roleRepository.findAll().isEmpty()){
             roleRepository.save(new Role( "ADMIN", "ADMIN"));
             roleRepository.save(new Role( "USER", "USER"));
+            roleRepository.save(new Role( "USERADMIN", "USER"));
         }
     }
 }
