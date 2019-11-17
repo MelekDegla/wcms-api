@@ -1,6 +1,5 @@
 package com.wecode.entity.dto;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class UserDto {

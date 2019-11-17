@@ -2,7 +2,6 @@ package com.wecode.service.impl;
 
 import com.wecode.repository.RoleRepository;
 import com.wecode.repository.UserRepository;
-import com.wecode.entity.Role;
 import com.wecode.entity.User;
 import com.wecode.entity.dto.UserDto;
 import com.wecode.service.UserService;

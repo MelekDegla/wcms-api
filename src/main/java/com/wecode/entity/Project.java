@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
  @NoArgsConstructor @ToString @Data
@@ -17,14 +19,19 @@ public class Project {
     private Long id ;
     private String name ;
     private String description ;
-    @ManyToMany
-    @JoinTable (
-            name ="user_project" ,
-            joinColumns =    @JoinColumn(name= "project_id") ,
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    @JsonIgnoreProperties("Project")
-    private List<User> users ;
+    @OneToMany(mappedBy = "primaryKey.project",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"project"})
+    private Set<UserProject> userProjects;
+
+//    @ManyToMany
+//    @JoinTable (
+//            name ="user_project" ,
+//            joinColumns =    @JoinColumn(name= "project_id") ,
+//            inverseJoinColumns = @JoinColumn(name = "user_id")
+//    )
+//    @JsonIgnoreProperties("Project")
+//    private List<User> users ;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
     @JsonIgnoreProperties("project")
@@ -33,5 +40,17 @@ public class Project {
     public Project(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public Set<UserProject> getUserProjects() {
+        return userProjects;
+    }
+
+    public void setUserProjects(Set<UserProject> projects) {
+        this.userProjects = projects;
+    }
+
+    public void addUserProjects(UserProject userProject) {
+        this.userProjects.add(userProject);
     }
 }

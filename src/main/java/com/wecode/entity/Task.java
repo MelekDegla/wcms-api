@@ -5,6 +5,9 @@ package com.wecode.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Task {
@@ -14,8 +17,9 @@ public class Task {
 
     private String label;
     private String description;
-
     private Integer status;
+
+    //private List<String> username;
 @ManyToOne
 @JsonIgnoreProperties("tasks")
 private Project project ;
@@ -69,4 +73,14 @@ private Project project ;
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+   /* public List<String> getUsername() {
+        return username;
+    }
+
+    public void setUsername(List<String> username) {
+        this.username = username;
+    }*/
+
+
 }

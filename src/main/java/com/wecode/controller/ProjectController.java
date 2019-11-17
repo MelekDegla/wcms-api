@@ -12,8 +12,11 @@ import java.util.List;
 @CrossOrigin("*" +
         "")
 public class ProjectController {
-    @Autowired
-    private ProjectService projectService;
+    private final ProjectService projectService;
+
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value="/projects")

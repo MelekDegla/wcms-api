@@ -1,12 +1,10 @@
 package com.wecode.config.seeder;
 
-import com.wecode.entity.User;
 import com.wecode.entity.dto.UserDto;
 import com.wecode.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Component
@@ -34,7 +32,7 @@ public class UsersSeeder {
                     UserDto user3 = new UserDto(null,"wiem" ,"wiemabada" ,1150L ,
                             "1997/6/7","address" ,30L ,
                             "07898878", "wiem@gmail.com");
-                    user3.setRoles(rolesUser);
+                    user3.setRoles(rolesAdmin);
             userService.save(user3);
                     UserDto user1 = new UserDto(null,"Degla" ,"degla123" ,1150L ,
                             "1997/6/7","address" ,30L ,
