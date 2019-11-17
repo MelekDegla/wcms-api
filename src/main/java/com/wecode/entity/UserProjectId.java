@@ -10,7 +10,6 @@ public class UserProjectId implements Serializable {
     @JsonIgnoreProperties("userProjects")
     private User user;
     @JsonIgnoreProperties("userProjects")
-
     private Project project;
     @ManyToOne(cascade = CascadeType.ALL)
     public User getUser() {

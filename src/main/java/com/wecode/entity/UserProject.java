@@ -1,4 +1,5 @@
 package com.wecode.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import javax.persistence.*;
         @AssociationOverride(name = "primaryKey.project",
                 joinColumns = @JoinColumn(name = "project_id")) })
 public class UserProject  {
+    @JsonIgnore
     private UserProjectId primaryKey = new UserProjectId();
 
     private boolean isManager ;

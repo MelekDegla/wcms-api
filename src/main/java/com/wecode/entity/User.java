@@ -35,8 +35,8 @@ public class User {
 
     @OneToMany(mappedBy = "primaryKey.user",
             cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("userProjects")
-    private Set<UserProject> userProjects = new HashSet<UserProject>();
+    @JsonIgnoreProperties({ "user"})
+    private Set<UserProject> userProjects ;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "USER_ROLES", joinColumns = {

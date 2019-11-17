@@ -21,17 +21,17 @@ public class Project {
     private String description ;
     @OneToMany(mappedBy = "primaryKey.project",
             cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("userProjects")
-    private Set<UserProject> userProjects = new HashSet<UserProject>();
+    @JsonIgnoreProperties({"project"})
+    private Set<UserProject> userProjects;
 
-    @ManyToMany
-    @JoinTable (
-            name ="user_project" ,
-            joinColumns =    @JoinColumn(name= "project_id") ,
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    @JsonIgnoreProperties("Project")
-    private List<User> users ;
+//    @ManyToMany
+//    @JoinTable (
+//            name ="user_project" ,
+//            joinColumns =    @JoinColumn(name= "project_id") ,
+//            inverseJoinColumns = @JoinColumn(name = "user_id")
+//    )
+//    @JsonIgnoreProperties("Project")
+//    private List<User> users ;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
     @JsonIgnoreProperties("project")
