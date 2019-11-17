@@ -46,6 +46,11 @@ public class Project {
         this.tasks = tasks;
     }
 
+    public Project(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public Project() {}
 
     public Long getId() {
