@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.xml.crypto.Data;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
+
 public class User {
 
     @Id
@@ -33,6 +33,10 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @OneToMany(mappedBy = "primaryKey.user",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("userProjects")
+    private Set<UserProject> userProjects = new HashSet<UserProject>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "USER_ROLES", joinColumns = {
@@ -40,14 +44,14 @@ public class User {
             @JoinColumn(name = "ROLE_ID") })
     @JsonIgnoreProperties("users")
     private List<Role> roles = new ArrayList<>();
-@ManyToMany
-    @JoinTable (
-            name ="user_project" ,
-            joinColumns = @JoinColumn(name= "user_id") ,
-            inverseJoinColumns = @JoinColumn(name = "project_id")
-    )
-    @JsonIgnoreProperties("user")
-    private List<Project> projects ;
+//@ManyToMany
+//    @JoinTable (
+//            name ="user_project" ,
+//            joinColumns = @JoinColumn(name= "user_id") ,
+//            inverseJoinColumns = @JoinColumn(name = "project_id")
+//    )
+//    @JsonIgnoreProperties("user")
+//    private List<Project> projects ;
     public long getId() {
         return id;
     }
@@ -129,11 +133,27 @@ public class User {
         this.email = email;
     }
 
-    public List<Project> getProjects() {
-        return projects;
+//    public List<Project> getProjects() {
+//        return projects;
+//    }
+//
+//    public void setProjects(List<Project> projects) {
+//        this.projects = projects;
+//    }
+
+    public void addProject(UserProject project) {
+        this.userProjects.add(project);
     }
 
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
+    public Set<UserProject> getUserProjects() {
+        return userProjects;
+    }
+
+    public void setUserProjects(Set<UserProject> projects) {
+        this.userProjects = projects;
+    }
+
+    public void addUserProject(UserProject userProject) {
+       this.userProjects.add(userProject);
     }
 }
