@@ -5,6 +5,7 @@ import com.wecode.repository.UserProjectRepository;
 import com.wecode.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class TaskController {
     @PostMapping(value = "/tasks")
     public Task saveTask(@RequestBody Task task){
         task.setProject(taskService.findById(task.getId()).getProject());
-        Task tsk = taskService.save(task);
+        Task tsk = taskService.save(task, SecurityContextHolder.getContext().getAuthentication().getName());
         this.simpMessagingTemplate.convertAndSend("/socket-front-project",tsk.getProject());
 
        userProjectRepository.findAllByProjectId(task.getProject().getId())
@@ -40,7 +41,7 @@ public class TaskController {
         return tsk;}
     @PutMapping(value = "/tasks")
     public Task update(@RequestBody Task task){
-        Task tsk = taskService.update(task);
+        Task tsk = taskService.update(task, SecurityContextHolder.getContext().getAuthentication().getName());
 
         this.simpMessagingTemplate.convertAndSend("/socket-front-project","test-------------------\n --------------------");
 
