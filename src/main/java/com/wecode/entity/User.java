@@ -33,6 +33,9 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @OneToMany(mappedBy = "user")
+    private List<Notification> notifications;
+
     @OneToMany(mappedBy = "primaryKey.user",
             cascade = CascadeType.ALL)
     @JsonIgnoreProperties({ "user"})
@@ -140,6 +143,16 @@ public class User {
 //    public void setProjects(List<Project> projects) {
 //        this.projects = projects;
 //    }
+
+
+    public List<Notification> getNotifications() {
+
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
 
     public void addProject(UserProject project) {
         this.userProjects.add(project);

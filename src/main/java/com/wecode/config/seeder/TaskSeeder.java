@@ -14,6 +14,7 @@ public class TaskSeeder {
     private ProjectRepository projectRepository;
 
     public void seed(){
+        if(projectRepository.findAll().isEmpty())
         projectRepository.findAll().forEach( (p) -> {
             taskService.save(new Task("Task 1 ", "Task1", 1, p),"karim");
             taskService.save(new Task("Task 2 ", "Task2", 1, p), "karim");

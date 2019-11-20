@@ -1,8 +1,11 @@
 package com.wecode.service;
 
 import com.wecode.entity.Log;
+import com.wecode.entity.Notification;
+import com.wecode.entity.Project;
 import com.wecode.entity.Task;
 import com.wecode.repository.LogRepository;
+import com.wecode.repository.ProjectRepository;
 import com.wecode.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +17,15 @@ import java.util.List;
 public class TaskService {
     private final TaskRepository taskRepository;
     private final LogRepository logRepository;
+    private final NotificationService notificationService;
+    private final ProjectRepository projectRepository;
 
-    public TaskService(TaskRepository taskRepository, LogRepository logRepository) {
+
+    public TaskService(TaskRepository taskRepository, LogRepository logRepository, NotificationService notificationService, ProjectRepository projectRepository) {
         this.taskRepository = taskRepository;
         this.logRepository = logRepository;
+        this.notificationService = notificationService;
+        this.projectRepository = projectRepository;
     }
 
 
@@ -29,7 +37,17 @@ public class TaskService {
     public Task save(Task task, String username){
         Task tsk = taskRepository.save(task);
 
-        logRepository.save(new Log("create", username, LocalDateTime.now(), checkStatus(task), checkStatus(task),  tsk));
+        Project project = projectRepository.findById(tsk.getProject().getId()).get();
+           project.getUserProjects().forEach(
+                    up -> {
+                        if(!username.equals(up.getUser().getUsername()))
+                          notificationService.save(new Notification(username, "has created task "+tsk.getLabel()+" in project named "+tsk.getProject().getName(), "/scrumboard/"+ tsk.getProject().getId(), up.getUser()));
+
+                    } );
+
+
+
+        logRepository.save(new Log("created task named" + tsk.getLabel() , username, LocalDateTime.now(), checkStatus(task), checkStatus(task),  tsk));
         return tsk;
     }
 
@@ -37,7 +55,15 @@ public class TaskService {
     public Task update (Task task, String username){
         String init = checkStatus(findById(task.getId()));
         Task tsk = taskRepository.save(task);
-        logRepository.save(new Log("modify", username, LocalDateTime.now(), init, checkStatus(tsk), tsk));
+
+        Project project = projectRepository.findById(tsk.getProject().getId()).get();
+        project.getUserProjects().forEach(
+                up -> {
+                    if(!username.equals(up.getUser().getUsername()))
+                    notificationService.save(new Notification(username, "has modified task "+tsk.getLabel()+" in project named "+tsk.getProject().getName(), "/scrumboard/"+ tsk.getProject().getId(), up.getUser()));
+
+                } );
+        logRepository.save(new Log("modified task named "+ task.getLabel(), username, LocalDateTime.now(), init, checkStatus(tsk), tsk));
         return tsk;
     }
 
