@@ -26,7 +26,7 @@ public class Project {
     private String description ;
     @OneToMany(mappedBy = "primaryKey.project")
     @JsonIgnoreProperties({"project"})
-    private Set<UserProject> userProjects;
+    private List<UserProject> userProjects ;
 
 //    @ManyToMany
 //    @JoinTable (
@@ -78,11 +78,11 @@ public class Project {
         this.tasks = tasks;
     }
 
-    public Set<UserProject> getUserProjects() {
+    public List<UserProject> getUserProjects() {
         return userProjects;
     }
 
-    public void setUserProjects(Set<UserProject> projects) {
+    public void setUserProjects(List<UserProject> projects) {
         this.userProjects = projects;
     }
 

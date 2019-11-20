@@ -5,6 +5,7 @@ package com.wecode.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,16 +33,11 @@ private Project project ;
         this.project = project;
     }
 
-    public Project getProject() {
-        return project;
-    }
+
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("task")
     private List<Log> logs;
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
 
     public Task(String label, String description, Integer status, Project project) {
         this.label = label;

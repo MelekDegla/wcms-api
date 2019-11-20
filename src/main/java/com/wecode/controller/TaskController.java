@@ -27,23 +27,13 @@ public class TaskController {
     public Task getOne(@PathVariable(value = "id") Long id){ return taskService.findById(id);}
     @PostMapping(value = "/tasks")
     public Task saveTask(@RequestBody Task task){
-        task.setProject(taskService.findById(task.getId()).getProject());
         Task tsk = taskService.save(task, SecurityContextHolder.getContext().getAuthentication().getName());
-        this.simpMessagingTemplate.convertAndSend("/socket-front-project",tsk.getProject());
 
-       userProjectRepository.findAllByProjectId(task.getProject().getId())
-               .forEach(up -> {
-                   System.out.println("------------------------------------------------------------------------------");
-                   System.out.println(up.getUser().getUsername());
-                   System.out.println("------------------------------------------------------------------------------");
-                    this.simpMessagingTemplate.convertAndSend("/notifications/"+up.getUser().getUsername(), tsk);
-               });
         return tsk;}
     @PutMapping(value = "/tasks")
     public Task update(@RequestBody Task task){
         Task tsk = taskService.update(task, SecurityContextHolder.getContext().getAuthentication().getName());
-
-        this.simpMessagingTemplate.convertAndSend("/socket-front-project","test-------------------\n --------------------");
+        simpMessagingTemplate.convertAndSend("/socket-front-project", tsk.getProject());
 
         return tsk;
 

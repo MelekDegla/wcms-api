@@ -1,5 +1,9 @@
 package com.wecode.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,16 +13,19 @@ public class Notification {
     private Long id;
     private String title;
     private String body;
-    private boolean viewed;
+
+    private boolean viewed = false;
     private String link;
 
     @ManyToOne
+    @JsonIgnoreProperties("notifications")
     private User user;
 
-    public Notification(String title, String body, User user) {
+    public Notification(String title, String body, String link, User user) {
         this.title = title;
         this.body = body;
         this.user = user;
+        this.link = link;
     }
 
     public Notification() {
