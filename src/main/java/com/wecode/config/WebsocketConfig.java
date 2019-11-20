@@ -22,6 +22,6 @@ public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/socket-subscriber")
-                .enableSimpleBroker("/socket-front-project");
+                .enableSimpleBroker("/socket-front-project", "/notifications");
     }
 }

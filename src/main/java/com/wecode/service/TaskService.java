@@ -16,7 +16,9 @@ public class TaskService {
     }
 
     public List<Task> findAll(){return taskRepository.findAll();}
-    public Task save(Task task){return taskRepository.save(task);}
+    public Task save(Task task){
+
+        return taskRepository.save(task);}
     public Task update (Task task){ return taskRepository.save(task); }
     public Task findById(Long id){return taskRepository.findById(id).get();}
     public  void deleteById(Long id){taskRepository.deleteById(id);}

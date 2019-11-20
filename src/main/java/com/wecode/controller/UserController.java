@@ -1,7 +1,9 @@
 package com.wecode.controller;
 
+import com.wecode.entity.Notification;
 import com.wecode.entity.User;
 import com.wecode.entity.dto.UserDto;
+import com.wecode.service.NotificationService;
 import com.wecode.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +18,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private NotificationService notificationService;
 
     //@Secured({"ROLE_ADMIN", "ROLE_USER"})
    @PreAuthorize("hasRole('ADMIN')")
@@ -50,6 +54,9 @@ public class UserController {
        return userService.save(user);
     }
 
-
+    @RequestMapping(value = "/notifs", method = RequestMethod.GET)
+    public List<Notification> getUserNotifications(){
+       return notificationService.findAllByUser(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
 
 }

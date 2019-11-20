@@ -1,6 +1,7 @@
 package com.wecode.controller;
 
 import com.wecode.entity.Task;
+import com.wecode.repository.UserProjectRepository;
 import com.wecode.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -15,6 +16,8 @@ public class TaskController {
     private TaskService taskService;
 
     @Autowired
+    private UserProjectRepository userProjectRepository;
+    @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @GetMapping(value ="/tasks")
@@ -23,9 +26,17 @@ public class TaskController {
     public Task getOne(@PathVariable(value = "id") Long id){ return taskService.findById(id);}
     @PostMapping(value = "/tasks")
     public Task saveTask(@RequestBody Task task){
+        task.setProject(taskService.findById(task.getId()).getProject());
         Task tsk = taskService.save(task);
         this.simpMessagingTemplate.convertAndSend("/socket-front-project",tsk.getProject());
 
+       userProjectRepository.findAllByProjectId(task.getProject().getId())
+               .forEach(up -> {
+                   System.out.println("------------------------------------------------------------------------------");
+                   System.out.println(up.getUser().getUsername());
+                   System.out.println("------------------------------------------------------------------------------");
+                    this.simpMessagingTemplate.convertAndSend("/notifications/"+up.getUser().getUsername(), tsk);
+               });
         return tsk;}
     @PutMapping(value = "/tasks")
     public Task update(@RequestBody Task task){

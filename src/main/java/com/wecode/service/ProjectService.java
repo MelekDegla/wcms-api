@@ -13,10 +13,15 @@ public class ProjectService {
 
     public List<Project> findAll(){return projectRepository.findAll();}
     public Project update(Project p){
-        return projectRepository.save(p);
+        Project newP = findById(p.getId());
+        newP.setName(p.getName());
+        newP.setDescription(p.getDescription());
+        return projectRepository.save(newP);
 
     }
-    public Project save( Project p){ return projectRepository.save(p);    }
+    public Project save( Project p){
+        return projectRepository.save(p);
+    }
 
     public Project findById(Long id){ return projectRepository.findById(id).get();}
 

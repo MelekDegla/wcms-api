@@ -5,6 +5,7 @@ package com.wecode.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,10 +20,18 @@ public class Task {
     private String description;
     private Integer status;
 
-    //private List<String> username;
+        private ArrayList<String> usernames;
 @ManyToOne
 @JsonIgnoreProperties("tasks")
 private Project project ;
+
+    public Task(String label, String description, Integer status, Project project,ArrayList<String> usernames) {
+        this.label = label;
+        this.description = description;
+        this.status = status;
+        this.usernames = usernames;
+        this.project = project;
+    }
 
     public Project getProject() {
         return project;
@@ -74,13 +83,11 @@ private Project project ;
         this.status = status;
     }
 
-   /* public List<String> getUsername() {
-        return username;
+    public ArrayList<String> getUsernames() {
+        return usernames;
     }
 
-    public void setUsername(List<String> username) {
-        this.username = username;
-    }*/
-
-
+    public void setUsernames(ArrayList<String> usernames) {
+        this.usernames = usernames;
+    }
 }
