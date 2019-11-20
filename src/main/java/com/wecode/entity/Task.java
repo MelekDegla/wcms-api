@@ -20,17 +20,14 @@ public class Task {
     private Integer status;
 
     //private List<String> username;
-@ManyToOne
-@JsonIgnoreProperties("tasks")
-private Project project ;
+    @ManyToOne
+    @JsonIgnoreProperties("tasks")
+    private Project project ;
 
-    public Project getProject() {
-        return project;
-    }
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("task")
+    private List<Log> logs;
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
 
     public Task(String label, String description, Integer status, Project project) {
         this.label = label;
@@ -40,6 +37,23 @@ private Project project ;
     }
 
     public Task() {
+    }
+
+
+    public List <Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List <Log> logs) {
+        this.logs = logs;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public Long getId() {
