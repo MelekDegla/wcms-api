@@ -22,5 +22,7 @@ public class ProjectService {
 
     public void deleteById(Long id){  projectRepository.deleteById(id);}
 
+    public Project findByName(String name) {return projectRepository.findByName(name).get(0);}
+
 
 }
