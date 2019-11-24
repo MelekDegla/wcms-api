@@ -12,7 +12,7 @@ public class UserProjectController {
     @Autowired
     private UserProjectService userProjectService;
 
-    @PostMapping(value="userprojects")
+    @PostMapping(value="/userprojects")
     public UserProject saveProject(@RequestBody UserProject userProject){
 
         return userProjectService.save(userProject);

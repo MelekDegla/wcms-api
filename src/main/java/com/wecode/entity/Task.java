@@ -78,4 +78,14 @@ private Project project ;
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", label='" + label + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", project=" + project +
+                '}';
+    }
 }

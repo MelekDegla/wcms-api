@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-
 public class TaskController {
     @Autowired
     private TaskService taskService;
@@ -23,5 +22,11 @@ public class TaskController {
     public Task update(@RequestBody Task task){return taskService.update(task);}
     @DeleteMapping(value = "/tasks/{id}")
     public void delete(@PathVariable(name = "id") Long id){taskService.deleteById(id);}
+
+
+    @GetMapping(value = "/tasks/description/{d}")
+    public Task findByDescription(@PathVariable(value = "d") String d){
+        return taskService.findByDescription(d);
+    }
 
 }

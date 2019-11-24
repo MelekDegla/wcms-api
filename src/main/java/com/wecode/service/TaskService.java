@@ -19,5 +19,6 @@ public class TaskService {
     public Task save(Task task){return taskRepository.save(task);}
     public Task update (Task task){ return taskRepository.save(task); }
     public Task findById(Long id){return taskRepository.findById(id).get();}
-    public  void deleteById(Long id){taskRepository.deleteById(id);}
+    public void deleteById(Long id){taskRepository.deleteById(id);}
+    public Task findByDescription(String description) {return taskRepository.findByDescription(description).get(0);}
 }

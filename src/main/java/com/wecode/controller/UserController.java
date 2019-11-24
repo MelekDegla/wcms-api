@@ -3,6 +3,7 @@ package com.wecode.controller;
 import com.wecode.entity.User;
 import com.wecode.entity.dto.UserDto;
 import com.wecode.service.UserService;
+import com.wecode.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +17,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
     //@Secured({"ROLE_ADMIN", "ROLE_USER"})
 //    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/users", method = RequestMethod.GET)
     public List<User> listUser(){
         return userService.findAll();
+    }
+
+    @RequestMapping(value = "/users/username/{us}", method = RequestMethod.GET)
+    public User findByUsername(@PathVariable(value = "us") String us){
+        return userService.findOne(us);
     }
 
 

@@ -1,8 +1,8 @@
 package test;
 
-import com.wecode.controller.TaskController;
 import com.wecode.entity.Project;
 import com.wecode.entity.Task;
+import com.wecode.repository.TaskRepository;
 import com.wecode.service.TaskService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,65 +19,48 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
-class TaskControllerTest {
-
+class TaskServiceUnitTest {
     Task task;
 
+
     @InjectMocks
-    TaskController taskController;
+    TaskService taskService;
 
     @Mock
-    TaskService taskService;
+    TaskRepository taskRepository;
 
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         task = new Task();
         task.setDescription("Test Task");
-        task.setLabel("Test");
+        task.setLabel("Label");
         assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
         task.setStatus(1);
         task.setProject(new Project());
     }
 
     @Test
-    void listTask() {
-        List<Task> list = taskController.listTask();
+    void findAll() {
+        List<Task> list = taskService.findAll();
         assertNotNull(list);
     }
 
     @Test
-    void getOne() {
-        when(taskService.findById(anyLong())).thenReturn(task);
-        Task ts = taskController.getOne(task.getId());
-
+    void save() {
+        when (taskRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(task));
         assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
-        assert ts.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
-
-        assertNotNull(ts);
-        assertNotNull(ts);
-        assertEquals(ts.getDescription(), task.getDescription());
-        assertEquals(ts.getStatus(), task.getStatus());
-        assertEquals(ts.getProject(), task.getProject());
-        assertEquals(ts.getId(), task.getId());
-        assertEquals(ts.getLabel(), task.getLabel());
-    }
-
-    @Test
-    void saveTask() {
-        when (taskService.findById(anyLong())).thenReturn(task);
-
-        assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
-
-        taskService.save(task);
+        taskRepository.save(task);
         assertNotNull(task.getLabel());
         assertNotNull(task.getDescription());
         assertNotNull(task.getProject());
         assertNotNull(task.getStatus());
 
 
-        Task ts = taskController.getOne(task.getId());
 
+        Task ts = taskService.findById(task.getId());
+
+        assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
         assert ts.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
 
         assertEquals(ts.getDescription(), task.getDescription());
@@ -93,7 +76,7 @@ class TaskControllerTest {
         String oldLabel  = task.getLabel();
         task.setLabel(newLabel);
 
-        when (taskController.getOne(anyLong())).thenReturn(task);
+        when (taskRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(task));
         Task ts = taskService.findById(task.getId());
 
         assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
@@ -107,11 +90,27 @@ class TaskControllerTest {
     }
 
     @Test
-    void delete() {
-        long projectId=42;
+    void findById() {
+        when (taskRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(task));
+        Task ts = taskService.findById(task.getId());
 
-        taskController.delete(projectId);
+        assert task.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
+        assert ts.getLabel().length() >=3 : "Task Label Length Should Be at min 3 chars !";
 
-        verify(taskService, times(1)).deleteById(eq(projectId));
+        assertNotNull(ts);
+        assertEquals(ts.getDescription(), task.getDescription());
+        assertEquals(ts.getStatus(), task.getStatus());
+        assertEquals(ts.getProject(), task.getProject());
+        assertEquals(ts.getId(), task.getId());
+        assertEquals(ts.getLabel(), task.getLabel());
+    }
+
+    @Test
+    void deleteById() {
+        long taskId=42;
+
+        taskService.deleteById(taskId);
+
+        verify(taskRepository, times(1)).deleteById(eq(taskId));
     }
 }

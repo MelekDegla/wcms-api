@@ -1,10 +1,9 @@
 package test;
 
-
-import com.wecode.controller.ProjectController;
 import com.wecode.entity.Project;
 import com.wecode.entity.Task;
 import com.wecode.entity.User;
+import com.wecode.repository.ProjectRepository;
 import com.wecode.service.ProjectService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,18 +17,19 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
-class ProjectControllerTest {
+class ProjectServiceUnitTest {
+
     Project project;
 
+
     @InjectMocks
-    ProjectController projectController;
+    ProjectService projectService;
 
     @Mock
-    ProjectService projectService;
+    ProjectRepository projectRepository;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -40,49 +40,14 @@ class ProjectControllerTest {
         project.setTasks(new ArrayList<Task>());
         project.setUsers(new ArrayList<User>());
 
-        assert project.getName().length() >=3 : "Project Name Length Should Be At Least 3 !";
-        assert project.getDescription().length() >=3 : "Project Description Length Should Be At Least 3 !";
+        assert project.getName().length() >=3 : "Project Name Length Should Be at min 3 chars !";
+        assert project.getDescription().length() >=3 : "Project Description Length Should Be at min 3 chars !";
     }
 
     @Test
-    void listProject() {
-        List<Project> list = projectController.listProject();
+    void findAll() {
+        List<Project> list = projectService.findAll();
         assertNotNull(list);
-    }
-
-    @Test
-    void getOne() {
-        when(projectService.findById(anyLong())).thenReturn(project);
-        Project pr = projectController.getOne(project.getId());
-        assertNotNull(pr);
-
-        asserts(project, pr);
-    }
-
-    @Test
-    void saveProject() {
-        when (projectService.findById(anyLong())).thenReturn(project);
-
-        projectService.save(project);
-        assertNotNull(project.getName());
-        assertNotNull(project.getUsers());
-        assertNotNull(project.getTasks());
-        assertNotNull(project.getDescription());
-
-
-        Project pr = projectController.getOne(project.getId());
-        assertNotNull(pr);
-
-        asserts(project, pr);
-    }
-
-    @Test
-    void delete() {
-        long projectId=42;
-
-        projectController.delete(projectId);
-
-        verify(projectService, times(1)).deleteById(eq(projectId));
     }
 
     @Test
@@ -91,12 +56,52 @@ class ProjectControllerTest {
         String oldName  = project.getName();
         project.setName(newName);
 
-        when (projectController.getOne(anyLong())).thenReturn(project);
+        assert project.getName().length() >=3 : "Project Name Length Should Be at min 3 chars !";
+        assert project.getDescription().length() >=3 : "Project Description Length Should Be at min 3 chars !";
+
+        when (projectRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(project));
+        Project pr = projectService.findById(project.getId());
+
+        asserts(project, pr);
+
+    }
+
+    @Test
+    void save() {
+        when (projectRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(project));
+
+        projectRepository.save(project);
+        assertNotNull(project.getName());
+        assertNotNull(project.getUsers());
+        assertNotNull(project.getTasks());
+        assertNotNull(project.getDescription());
+
+
+
+
+        Project pr = projectService.findById(project.getId());
+
+        asserts(project, pr);
+
+
+    }
+
+    @Test
+    void findById() {
+        when (projectRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(project));
         Project pr = projectService.findById(project.getId());
         assertNotNull(pr);
 
         asserts(project, pr);
+    }
 
+    @Test
+    void deleteById() {
+        long projectId=42;
+
+        projectService.deleteById(projectId);
+
+        verify(projectRepository, times(1)).deleteById(eq(projectId));
     }
 
     private void asserts(Project project, Project pr)

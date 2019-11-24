@@ -24,6 +24,11 @@ public class ProjectController {
         return projectService.findById(id);
     }
 
+    @GetMapping(value = "/projects/name/{n}")
+    public Project findByName(@PathVariable(value = "n") String name){
+        return projectService.findByName(name);
+    }
+
     @PostMapping(value="/projects")
     public Project saveProject(@RequestBody Project project){
         return projectService.save(project);

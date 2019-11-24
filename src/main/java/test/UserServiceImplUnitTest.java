@@ -1,33 +1,37 @@
 package test;
 
-import com.wecode.controller.UserController;
 import com.wecode.entity.User;
-import com.wecode.entity.dto.UserDto;
+import com.wecode.repository.UserRepository;
 import com.wecode.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.security.core.context.SecurityContextHolder;
+
 
 import java.time.LocalDate;
 import java.util.List;
 
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
-class UserControllerTest {
 
-    @InjectMocks
-    UserController userController;
-
-    @Mock
-    UserServiceImpl userService;
+class UserServiceImplUnitTest {
 
     User user;
+
+
+    @InjectMocks
+    UserServiceImpl userServiceImp;
+
+    @Mock
+    UserRepository userRepository;
 
     @BeforeEach
     void setUp() throws Exception
@@ -53,41 +57,50 @@ class UserControllerTest {
     }
 
 
+
     @Test
-    void listUser() {
-        List<User> list = userController.listUser();
+    void findAll() {
+        List<User> list = userServiceImp.findAll();
         assertNotNull(list);
+
     }
 
     @Test
-    void getOne() {
-        when(userService.findById(anyLong())).thenReturn(user);
-        User us = userController.getOne(user.getId());
-        assertNotNull(us);
-        assertNotNull(us);
+    void delete() {
+        long userId=42;
 
+        userServiceImp.delete(userId);
+
+        verify(userRepository, times(1)).deleteById(eq(userId));
+    }
+
+    @Test
+    void findOne() {
+        when (userServiceImp.findOne(anyString())).thenReturn(user);
+        User us = userServiceImp.findOne("We Code");
         asserts(us, user);
-
     }
 
     @Test
-    void saveUser() {
-        when (userService.findById(anyLong())).thenReturn(user);
-        UserDto userDto = new UserDto();
-        userDto.setBirthdate(user.getBirthdate());
-        userDto.setPassword(user.getPassword());
-        userDto.setSalary((int) user.getSalary());
-        userDto.setUsername(user.getUsername());
-        userService.save(userDto);
+    void findById() {
+        when (userRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(user));
+        User us = userServiceImp.findById(user.getId());
+        assertNotNull(us);
+        asserts(us, user);
+    }
 
+    @Test
+    void save() {
+        when (userRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(user));
+
+        userRepository.save(user);
         assertNotNull(user.getId());
 
 
-        User us = userController.getOne(user.getId());
-
-        assertNotNull(us);
+        User us = userServiceImp.findById(user.getId());
 
         asserts(us, user);
+
     }
 
     private void asserts(User us, User user) {
@@ -106,6 +119,4 @@ class UserControllerTest {
         assert us.getPassword().length() >=6 : "Password Length Should Be At Least 3!";
 
     }
-
-
 }

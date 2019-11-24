@@ -1,5 +1,6 @@
 package test;
 
+import com.wecode.controller.UserProjectController;
 import com.wecode.entity.Project;
 import com.wecode.entity.Task;
 import com.wecode.entity.User;
@@ -14,16 +15,18 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-class UserProjectServiceTest {
+class UserProjectControllerUnitTest {
 
     UserProject userProject;
 
     @InjectMocks
+    UserProjectController userProjectController;
+
+    @Mock
     UserProjectService userProjectService;
 
     @Mock
@@ -55,28 +58,11 @@ class UserProjectServiceTest {
     }
 
     @Test
-    void findAll() {
-        List<UserProject> list = userProjectService.findAll();
-        assertNotNull(list);
-    }
+    void saveProject() {
 
-    @Test
-    void save() {
+
         when (userProjectRepository.getOne(userProject.getPrimaryKey())).thenReturn(userProject);
-        userProjectRepository.save(userProject);
-
-        UserProject up = userProjectRepository.getOne(userProject.getPrimaryKey());
-        asserts(up, userProject);
-
-
-    }
-
-
-    @Test
-    void update() {
-        userProject.getUser().setAddress("userProject Adress Test");
-        userProject.setManager(false);
-        when (userProjectRepository.getOne(userProject.getPrimaryKey())).thenReturn(userProject);
+        userProjectService.save(userProject);
         UserProject up = userProjectRepository.getOne(userProject.getPrimaryKey());
         asserts(up, userProject);
     }
