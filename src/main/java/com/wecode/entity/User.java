@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 
@@ -32,6 +33,7 @@ public class User {
     private String cin;
     @Column(unique = true)
     private String email;
+
 
     @OneToMany(mappedBy = "primaryKey.user",
             cascade = CascadeType.ALL)
@@ -156,4 +158,8 @@ public class User {
     public void addUserProject(UserProject userProject) {
        this.userProjects.add(userProject);
     }
+
+
+
+
 }

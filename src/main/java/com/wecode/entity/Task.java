@@ -21,7 +21,7 @@ public class Task {
 
     //private List<String> username;
 @ManyToOne
-@JsonIgnoreProperties("tasks")
+@JsonIgnoreProperties({"tasks","userProjects"})
 private Project project ;
 
     public Project getProject() {

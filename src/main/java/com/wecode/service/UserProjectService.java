@@ -2,6 +2,7 @@ package com.wecode.service;
 
 
 
+import com.wecode.entity.Project;
 import com.wecode.entity.UserProject;
 import com.wecode.entity.util.UserProjectVM;
 import com.wecode.repository.UserProjectRepository;
@@ -20,7 +21,9 @@ public class UserProjectService {
     public List<UserProject> findAll() {
         return userProjectRepository.findAll();
     }
-//    public void save(UserProjectVM userProject) {
+   
+
+    //    public void save(UserProjectVM userProject) {
 //         userProjectRepository.saveUP(userProject.getIdUser(), userProject.getIdProject(), userProject.isManager());
 //
 //    }

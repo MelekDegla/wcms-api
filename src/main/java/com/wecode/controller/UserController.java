@@ -3,6 +3,7 @@ package com.wecode.controller;
 import com.wecode.entity.User;
 import com.wecode.entity.dto.UserDto;
 import com.wecode.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +17,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    ModelMapper modelMapper ;
     //@Secured({"ROLE_ADMIN", "ROLE_USER"})
    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/users", method = RequestMethod.GET)
@@ -36,9 +38,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/auth", method = RequestMethod.GET)
-    public User getUserByAuth(){
+    public User getUserByAuth() {
         return userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName());
     }
+
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id){
 
@@ -49,7 +52,6 @@ public class UserController {
     public User modifyUser(@RequestBody UserDto user){
        return userService.save(user);
     }
-
 
 
 }
