@@ -45,13 +45,12 @@ class UserControllerIntegrationTest {
     }
 
     @Test
-    void getOne() {
-
-        ResponseEntity<?> response = restTemplate.exchange(
-                "http://localhost:8090/users/2", HttpMethod.GET, new HttpEntity<String>(null, headers), String.class);
+    void getOne() { //Problem Here
+        ResponseEntity<User> response = restTemplate.exchange(
+                "http://localhost:8090/users/1", HttpMethod.GET, new HttpEntity<User>(null, headers), User.class);
 
         assertNotNull(response.getBody());
-        assert response.getBody().toString().contains("Unauthorized");
+        assertEquals("Degla", response.getBody().getUsername());
     }
 
     @Test
@@ -71,13 +70,12 @@ class UserControllerIntegrationTest {
 
 
 
-        HttpEntity<?> entity = new HttpEntity<User>(null, headers);
-        ResponseEntity<?> res = restTemplate.exchange(
-                "http://localhost:8090/users/username/"+user.getUsername(), HttpMethod.GET, entity, String.class);
+        HttpEntity<User> entity = new HttpEntity<User>(null, headers);
+        ResponseEntity<User> res = restTemplate.exchange(
+                "http://localhost:8090/users/username/"+user.getUsername(), HttpMethod.GET, entity, User.class);
 
-        System.out.println(res.getBody());
         assertNotNull(res.getBody());
-        assert res.getBody().toString().contains("Unauthorized");
+        assertEquals(user.getCin(), res.getBody().getCin());
 
     }
 }
