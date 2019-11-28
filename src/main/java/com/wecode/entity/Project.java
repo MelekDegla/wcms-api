@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
- @NoArgsConstructor @ToString @Data
+  @ToString @Data
 public class Project {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -40,6 +40,8 @@ public class Project {
     @OneToMany( mappedBy = "project")
     @JsonIgnoreProperties("project")
     private List<Task> tasks;
+
+    public Project(){}
 
     public Project(String name, String description) {
         this.name = name;

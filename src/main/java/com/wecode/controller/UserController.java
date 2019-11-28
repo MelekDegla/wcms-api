@@ -59,4 +59,10 @@ public class UserController {
        return notificationService.findAllByUser(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
+    // For Test
+    @RequestMapping(value = "/users/username/{us}", method = RequestMethod.GET)
+    public User findByUsername(@PathVariable(value = "us") String us){
+        return userService.findOne(us);
+    }
+
 }

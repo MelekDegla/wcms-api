@@ -94,5 +94,8 @@ public class TaskService {
         return status;
     }
 
+    // For Test
+    public Task findByDescription(String description) {return taskRepository.findByDescription(description).get(0);}
+
 
 }
