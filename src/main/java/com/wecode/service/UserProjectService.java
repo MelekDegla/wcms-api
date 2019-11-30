@@ -2,9 +2,9 @@ package com.wecode.service;
 
 
 
-import com.wecode.entity.Project;
+import com.wecode.entity.User;
 import com.wecode.entity.UserProject;
-import com.wecode.entity.util.UserProjectVM;
+import com.wecode.entity.UserProjectId;
 import com.wecode.repository.UserProjectRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +21,13 @@ public class UserProjectService {
     public List<UserProject> findAll() {
         return userProjectRepository.findAll();
     }
-   
 
-    //    public void save(UserProjectVM userProject) {
-//         userProjectRepository.saveUP(userProject.getIdUser(), userProject.getIdProject(), userProject.isManager());
-//
-//    }
-public UserProject save(UserProject userProject) {
+    public UserProject save(UserProject userProject) {
         return userProjectRepository.save(userProject);
-}
-    public UserProject update (UserProject userProject) { return userProjectRepository.save(userProject); }
-   // public UserProject findById(Long id){return userProjectRepository.findById(id).get();}
-   // public  void deleteById(Long id){userProjectRepository.deleteById(id);}
+    }
+
+   public UserProject findById(UserProjectId id ) {
+        return userProjectRepository.getOne(id);
+    }
+    public  void deleteById(UserProjectId id){userProjectRepository.deleteById(id);}
 }

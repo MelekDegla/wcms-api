@@ -54,6 +54,8 @@ public class User {
 //    )
 //    @JsonIgnoreProperties("user")
 //    private List<Project> projects ;
+
+
     public long getId() {
         return id;
     }
@@ -134,14 +136,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-//    public List<Project> getProjects() {
-//        return projects;
-//    }
-//
-//    public void setProjects(List<Project> projects) {
-//        this.projects = projects;
-//    }
 
     public void addProject(UserProject project) {
         this.userProjects.add(project);

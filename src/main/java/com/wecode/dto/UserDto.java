@@ -1,12 +1,9 @@
-package com.wecode.entity.dto;
+package com.wecode.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.wecode.entity.Project;
 import com.wecode.entity.UserProject;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserDto {
     private Long id;

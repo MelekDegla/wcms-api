@@ -1,7 +1,6 @@
-package com.wecode.entity.dto;
+package com.wecode.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.wecode.entity.Project;
 import com.wecode.entity.Task;
 import com.wecode.entity.User;
 import com.wecode.entity.UserProject;
@@ -14,6 +13,16 @@ public class ProjectDto {
     private String description ;
     private  List<User> users = new ArrayList<>();
     private List<Task> tasks;
+    private float estimation;
+
+    public float getEstimation() {
+        int done = (int) tasks.stream().filter(task -> task.getStatus() == 4).count();
+        return done * 100 / tasks.size();
+    }
+
+    public void setEstimation(float estimation) {
+        this.estimation = estimation;
+    }
 
     @JsonIgnore
     private List<UserProject> userProjects;

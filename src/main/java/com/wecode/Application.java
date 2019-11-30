@@ -2,7 +2,7 @@ package com.wecode;
 
 import com.wecode.config.seeder.SeedByOrder;
 import com.wecode.entity.User;
-import com.wecode.entity.dto.UserDto;
+import com.wecode.dto.UserDto;
 import com.wecode.repository.RoleRepository;
 import com.wecode.service.UserService;
 import org.modelmapper.ModelMapper;
