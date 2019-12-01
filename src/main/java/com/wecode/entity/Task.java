@@ -5,6 +5,8 @@ package com.wecode.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,8 +18,13 @@ public class Task {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
 
+
+    @NotNull
+    @Size(min= 3, message = "Task Label Length Should Be at min 3 !")
     private String label;
     private String description;
+
+    @NotNull
     private Integer status;
 
         private ArrayList<String> usernames;

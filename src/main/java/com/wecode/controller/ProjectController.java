@@ -43,4 +43,11 @@ public class ProjectController {
     public Project update(@RequestBody Project p){
         return projectService.update(p);
     }
+
+
+    // For TEST
+    @GetMapping(value = "/projects/name/{n}")
+    public Project findByName(@PathVariable(value = "n") String name){
+        return projectService.findByName(name);
+    }
 }

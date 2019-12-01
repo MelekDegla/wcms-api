@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -17,12 +19,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
- @NoArgsConstructor @ToString @Data
+  @ToString @Data
 public class Project {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id ;
+
+    @NotNull
+    @Size(min= 3, message = "Project Name Length Should Be at min 3 chars !")
     private String name ;
+
+    @NotNull
+    @Size(min= 3, message = "Project Description Length Should Be at Least 3 !")
     private String description ;
     @OneToMany(mappedBy = "primaryKey.project")
     @JsonIgnoreProperties({"project"})
@@ -40,6 +48,8 @@ public class Project {
     @OneToMany( mappedBy = "project")
     @JsonIgnoreProperties("project")
     private List<Task> tasks;
+
+    public Project(){}
 
     public Project(String name, String description) {
         this.name = name;
