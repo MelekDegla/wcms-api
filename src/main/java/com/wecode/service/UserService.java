@@ -1,7 +1,7 @@
 package com.wecode.service;
 
 import com.wecode.entity.User;
-import com.wecode.entity.dto.UserDto;
+import com.wecode.dto.UserDto;
 
 import java.util.List;
 

@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository   ;
 
-    public List<Project> findAll(){return projectRepository.findAll();}
+    public List<Project> findAll() {
+       return projectRepository.findAll();
+    }
     public Project update(Project p){
         Project newP = findById(p.getId());
         newP.setName(p.getName());

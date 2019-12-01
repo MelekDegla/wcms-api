@@ -1,6 +1,6 @@
 package com.wecode.config.seeder;
 
-import com.wecode.entity.dto.UserDto;
+import com.wecode.dto.UserDto;
 import com.wecode.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,12 +26,12 @@ public class UsersSeeder {
 
                     UserDto user2 = new UserDto(null,"Montassar" ,"monta++" ,1150L ,
                             "1997/6/7","address" ,30L , "07889877",
-                            "tatay@gmail.com");
+                            "imencharadi51@gmail.com");
                     user2.setRoles(rolesBoth);
                     userService.save(user2);
                     UserDto user3 = new UserDto(null,"wiem" ,"wiemabada" ,1150L ,
                             "1997/6/7","address" ,30L ,
-                            "07898878", "wiem@gmail.com");
+                            "07898878", "mejrihaifa20@gmail.com");
                     user3.setRoles(rolesAdmin);
             userService.save(user3);
                     UserDto user1 = new UserDto(null,"Degla" ,"degla123" ,1150L ,

@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 
@@ -47,6 +48,7 @@ public class User {
     @Column(unique = true)
     private String email;
 
+
     @OneToMany(mappedBy = "user")
     private List<Notification> notifications;
 
@@ -69,6 +71,8 @@ public class User {
 //    )
 //    @JsonIgnoreProperties("user")
 //    private List<Project> projects ;
+
+
     public long getId() {
         return id;
     }
@@ -150,6 +154,7 @@ public class User {
         this.email = email;
     }
 
+
 //    public List<Project> getProjects() {
 //        return projects;
 //    }
@@ -168,6 +173,7 @@ public class User {
         this.notifications = notifications;
     }
 
+
     public void addProject(UserProject project) {
         this.userProjects.add(project);
     }
@@ -183,4 +189,8 @@ public class User {
     public void addUserProject(UserProject userProject) {
        this.userProjects.add(userProject);
     }
+
+
+
+
 }

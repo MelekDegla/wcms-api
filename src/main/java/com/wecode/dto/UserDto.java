@@ -1,4 +1,7 @@
-package com.wecode.entity.dto;
+package com.wecode.dto;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wecode.entity.UserProject;
 
 import java.util.List;
 
@@ -13,6 +16,19 @@ public class UserDto {
     private String cin;
     private String email;
     private List<String> roles;
+    @JsonIgnore
+    private List<UserProject> userProjects;
+
+    public List<UserProject> getUserProjects() {
+        return userProjects;
+    }
+
+    public void setUserProjects(List<UserProject> userProjects) {
+        this.userProjects = userProjects;
+    }
+
+
+
 
     public UserDto(Long id, String username, String password, long salary, String birthdate, String address, Long leaveBalance, String cin, String email) {
         this.id = id;

@@ -3,7 +3,7 @@ package com.wecode.service.impl;
 import com.wecode.repository.RoleRepository;
 import com.wecode.repository.UserRepository;
 import com.wecode.entity.User;
-import com.wecode.entity.dto.UserDto;
+import com.wecode.dto.UserDto;
 import com.wecode.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

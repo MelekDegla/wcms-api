@@ -29,7 +29,7 @@ public class Task {
 
         private ArrayList<String> usernames;
 @ManyToOne
-@JsonIgnoreProperties("tasks")
+@JsonIgnoreProperties({"tasks","userProjects"})
 private Project project ;
 
     public Task(String label, String description, Integer status, Project project,ArrayList<String> usernames) {
