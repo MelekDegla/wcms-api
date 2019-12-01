@@ -1,6 +1,5 @@
 package com.wecode.test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wecode.controller.UserController;
 import com.wecode.entity.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,8 +21,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserControllerIntegrationTest {
 
     String url = "http://localhost:8091";
-    String authAdmin = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNb250YXNzYXIiLCJzY29wZXMiOiJST0xFX0FETUlOIiwiaWF0IjoxNTc0OTY2NTk4LCJleHAiOjE1NzUwNTI5OTh9.S7jJesE1B5h0mqMsaUK7o0ySV9pXK_60HBbjSJ_IuGw";
-    String authNoadmin = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aWVtIiwic2NvcGVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNTc0OTY2ODUwLCJleHAiOjE1NzUwNTMyNTB9.OX27wmK1zYqqhzfqOOngqdLiydDsuc--0pBfdh87ieE";
+    String authAdmin = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNb250YXNzYXIiLCJzY29wZXMiOiJST0xFX0FETUlOIiwiaWF0IjoxNTc1MTk4OTA5LCJleHAiOjE1NzUyODUzMDl9.ZJZ4zygIFKMdh4vZR_PlKkuQsgksyjf-9m1Cktfp3bM";
+    String authNoadmin = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aWVtIiwic2NvcGVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNTc1MTk4OTQ0LCJleHAiOjE1NzUyODUzNDR9.JUby7uAl93pftDPpXGAh6zwmj_fXyi9vrsFQvUg8unA";
+
 
 
     @Mock
@@ -34,7 +34,6 @@ class UserControllerIntegrationTest {
     HttpHeaders headersNoAuth = new HttpHeaders();
 
     TestRestTemplate restTemplate = new TestRestTemplate();
-    private static final ObjectMapper om = new ObjectMapper();
 
     @BeforeEach
     void setUp() {
@@ -110,6 +109,7 @@ class UserControllerIntegrationTest {
 
         HttpEntity<User> entityAdmin = new HttpEntity<User>(user, headersAdmin);
         restTemplate.postForEntity(url+"/users", entityAdmin, String.class);
+
 
 
         HttpEntity<User> entityFromAdmin = new HttpEntity<User>(null, headersAdmin);
