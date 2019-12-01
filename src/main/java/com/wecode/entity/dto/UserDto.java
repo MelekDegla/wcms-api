@@ -1,4 +1,4 @@
-package com.wecode.dto;
+package com.wecode.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wecode.entity.UserProject;
