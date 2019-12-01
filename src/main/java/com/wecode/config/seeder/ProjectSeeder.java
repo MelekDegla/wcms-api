@@ -11,9 +11,12 @@ public class ProjectSeeder {
     ProjectService projectService;
 
     public void seed(){
-        projectService.save(new Project("Project 1", "project wcms"));
-        projectService.save(new Project("Project 2", "project wcms"));
-        projectService.save(new Project("Project 3", "project wcms"));
-        projectService.save(new Project("Project 4", "project wcms"));
-    }
+       if(projectService.findAll().isEmpty()) {
+
+            projectService.save(new Project("Project 1", "project wcms"));
+            projectService.save(new Project("Project 2", "project wcms"));
+            projectService.save(new Project("Project 3", "project wcms"));
+            projectService.save(new Project("Project 4", "project wcms"));
+        }
+        }
 }

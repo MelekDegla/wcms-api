@@ -67,4 +67,9 @@ public class ProjectController {
     }
 
 
+
+    @GetMapping(value = "/projects/name/{n}")
+    public Project findByName(@PathVariable(value = "n") String name){
+        return projectService.findByName(name);
+    }
 }

@@ -5,6 +5,9 @@ package com.wecode.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,22 +18,33 @@ public class Task {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
 
+
+    @NotNull
+    @Size(min= 3, message = "Task Label Length Should Be at min 3 !")
     private String label;
     private String description;
+
+    @NotNull
     private Integer status;
 
-    //private List<String> username;
+        private ArrayList<String> usernames;
 @ManyToOne
 @JsonIgnoreProperties({"tasks","userProjects"})
 private Project project ;
 
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
+    public Task(String label, String description, Integer status, Project project,ArrayList<String> usernames) {
+        this.label = label;
+        this.description = description;
+        this.status = status;
+        this.usernames = usernames;
         this.project = project;
     }
+
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("task")
+    private List<Log> logs;
+
 
     public Task(String label, String description, Integer status, Project project) {
         this.label = label;
@@ -40,6 +54,23 @@ private Project project ;
     }
 
     public Task() {
+    }
+
+
+    public List <Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List <Log> logs) {
+        this.logs = logs;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public Long getId() {
@@ -74,13 +105,11 @@ private Project project ;
         this.status = status;
     }
 
-   /* public List<String> getUsername() {
-        return username;
+    public ArrayList<String> getUsernames() {
+        return usernames;
     }
 
-    public void setUsername(List<String> username) {
-        this.username = username;
-    }*/
-
-
+    public void setUsernames(ArrayList<String> usernames) {
+        this.usernames = usernames;
+    }
 }

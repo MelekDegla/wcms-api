@@ -14,13 +14,14 @@ public class TaskSeeder {
     private ProjectRepository projectRepository;
 
     public void seed(){
-        projectRepository.findAll().forEach(p -> {
-            taskService.save(new Task("Task 1 ", "Task1", 1, p));
-            taskService.save(new Task("Task 2 ", "Task2", 1, p));
-            taskService.save(new Task("Task 3 ", "Task3", 1, p));
-            taskService.save(new Task("Task 4 ", "Task4", 1, p));
-            taskService.save(new Task("Task 5 ", "Task5", 1, p));
-            taskService.save(new Task("Task 6 ", "Task6", 1, p));
+        if(projectRepository.findAll().isEmpty())
+        projectRepository.findAll().forEach( (p) -> {
+            taskService.save(new Task("Task 1 ", "Task1", 1, p),"karim");
+            taskService.save(new Task("Task 2 ", "Task2", 1, p), "karim");
+            taskService.save(new Task("Task 3 ", "Task3", 1, p), "karim");
+            taskService.save(new Task("Task 4 ", "Task4", 1, p), "karim");
+            taskService.save(new Task("Task 5 ", "Task5", 1, p),"karim");
+            taskService.save(new Task("Task 6 ", "Task6", 1, p), "karim");
 
         });
     }

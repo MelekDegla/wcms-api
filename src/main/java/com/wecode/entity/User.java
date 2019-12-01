@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.util.*;
@@ -16,24 +18,39 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
+
     @Column(unique = true)
+    @NotNull
+    @Size(min = 3, message = "Username Length Should Be At Least 3!")
     private String username;
+
     @Column
     @JsonIgnore
+    @NotNull
+    @Size(min = 6, message = "Password Length Should Be At Least 3!")
     private String password;
+
     @Column
+    @NotNull
     private long salary;
+
     @Column
+    @NotNull
     private String birthdate;
 
     private String address;
 
     private Long leaveBalance;
+
     @Column(unique = true)
+    @NotNull
     private String cin;
     @Column(unique = true)
     private String email;
 
+
+    @OneToMany(mappedBy = "user")
+    private List<Notification> notifications;
 
     @OneToMany(mappedBy = "primaryKey.user",
             cascade = CascadeType.ALL)
@@ -136,6 +153,26 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
+//    public List<Project> getProjects() {
+//        return projects;
+//    }
+//
+//    public void setProjects(List<Project> projects) {
+//        this.projects = projects;
+//    }
+
+
+    public List<Notification> getNotifications() {
+
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
 
     public void addProject(UserProject project) {
         this.userProjects.add(project);
