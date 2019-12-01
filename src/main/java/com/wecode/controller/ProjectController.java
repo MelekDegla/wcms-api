@@ -2,7 +2,7 @@ package com.wecode.controller;
 
 import com.wecode.entity.Project;
 import com.wecode.entity.UserProject;
-import com.wecode.dto.ProjectDto;
+import com.wecode.entity.dto.ProjectDto;
 import com.wecode.service.ProjectService;
 import com.wecode.service.UserService;
 import org.modelmapper.ModelMapper;

@@ -1,6 +1,6 @@
 package com.wecode.config.seeder;
 
-import com.wecode.dto.UserDto;
+import com.wecode.entity.dto.UserDto;
 import com.wecode.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
