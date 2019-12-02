@@ -1,6 +1,6 @@
-package com.wecode.test;
+package com.wecode;
 
-import com.wecode.repository.LogRepository;
+import com.wecode.controller.LogController;
 import com.wecode.service.LogService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,15 +8,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class LogServiceUnitTest {
+class LogControllerUnitTest {
+
 
     @InjectMocks
-    LogService logService;
+    LogController logController;
 
     @Mock
-    LogRepository logRepository;
+    LogService logService;
 
     @BeforeEach
     void setUp() {
@@ -25,6 +26,6 @@ class LogServiceUnitTest {
 
     @Test
     void findAll() {
-        assertNotNull(logService.findAll());
+        assertNotNull(logController.findAll());
     }
 }

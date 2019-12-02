@@ -1,4 +1,4 @@
-package com.wecode.test;
+package com.wecode;
 
 import com.wecode.controller.UserProjectController;
 import com.wecode.entity.Project;
@@ -14,7 +14,7 @@ import org.springframework.http.*;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class UserProjectControllerIntegrationTest {
 

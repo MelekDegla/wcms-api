@@ -1,4 +1,4 @@
-package com.wecode.test;
+package com.wecode;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wecode.controller.TaskController;
@@ -15,7 +15,6 @@ import org.springframework.http.*;
 
 import java.util.Collections;
 import java.util.List;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 

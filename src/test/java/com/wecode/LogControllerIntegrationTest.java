@@ -1,4 +1,4 @@
-package com.wecode.test;
+package com.wecode;
 
 import com.wecode.controller.LogController;
 import com.wecode.entity.Log;
@@ -16,7 +16,7 @@ import org.springframework.http.MediaType;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class LogControllerIntegrationTest {
     String url = "http://localhost:8091";

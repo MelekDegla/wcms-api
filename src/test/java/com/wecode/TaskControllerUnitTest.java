@@ -1,4 +1,4 @@
-package com.wecode.test;
+package com.wecode;
 
 import com.wecode.controller.TaskController;
 import com.wecode.entity.Project;
@@ -12,7 +12,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;

@@ -6,11 +6,13 @@ import com.wecode.entity.dto.UserDto;
 import com.wecode.proprety.FileStorageProperties;
 import com.wecode.repository.RoleRepository;
 import com.wecode.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 import javax.annotation.PostConstruct;
 
@@ -25,6 +27,10 @@ public class Application implements CommandLineRunner {
     @Autowired
     private SeedByOrder seedByOrder;
 
+    @Bean
+    public ModelMapper getModelMapper(){
+        return new ModelMapper();
+    }
     public static void main(String[] args) {
        SpringApplication.run(Application.class, args);
 

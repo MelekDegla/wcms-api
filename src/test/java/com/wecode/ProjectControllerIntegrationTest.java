@@ -1,4 +1,4 @@
-package com.wecode.test;
+package com.wecode;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wecode.controller.ProjectController;
@@ -8,10 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

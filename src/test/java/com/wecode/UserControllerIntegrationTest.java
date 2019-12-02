@@ -1,4 +1,4 @@
-package com.wecode.test;
+package com.wecode;
 
 import com.wecode.controller.UserController;
 import com.wecode.entity.User;
@@ -11,11 +11,11 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 
-
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class UserControllerIntegrationTest {

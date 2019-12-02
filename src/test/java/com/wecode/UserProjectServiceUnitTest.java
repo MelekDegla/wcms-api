@@ -1,6 +1,5 @@
-package com.wecode.test;
+package com.wecode;
 
-import com.wecode.controller.UserProjectController;
 import com.wecode.entity.Project;
 import com.wecode.entity.Task;
 import com.wecode.entity.User;
@@ -13,20 +12,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-
 import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
-class UserProjectControllerUnitTest {
+class UserProjectServiceUnitTest {
 
     UserProject userProject;
 
     @InjectMocks
-    UserProjectController userProjectController;
-
-    @Mock
     UserProjectService userProjectService;
 
     @Mock
@@ -57,11 +54,28 @@ class UserProjectControllerUnitTest {
     }
 
     @Test
-    void saveProject() {
+    void findAll() {
+        List<UserProject> list = userProjectService.findAll();
+        assertNotNull(list);
+    }
 
-
+    @Test
+    void save() {
         when (userProjectRepository.getOne(userProject.getPrimaryKey())).thenReturn(userProject);
-        userProjectService.save(userProject);
+        userProjectRepository.save(userProject);
+
+        UserProject up = userProjectRepository.getOne(userProject.getPrimaryKey());
+        asserts(up, userProject);
+
+
+    }
+
+
+    @Test
+    void update() {
+        userProject.getUser().setAddress("userProject Adress Test");
+        userProject.setManager(false);
+        when (userProjectRepository.getOne(userProject.getPrimaryKey())).thenReturn(userProject);
         UserProject up = userProjectRepository.getOne(userProject.getPrimaryKey());
         asserts(up, userProject);
     }
