@@ -1,5 +1,7 @@
 package com.wecode.entity.dto;
 
+import com.wecode.entity.Holiday;
+
 import java.util.List;
 
 public class UserDto {
@@ -13,6 +15,7 @@ public class UserDto {
     private String cin;
     private String email;
     private List<String> roles;
+   private List<Holiday> holidays;
 
     public UserDto(Long id, String username, String password, long salary, String birthdate, String address, Long leaveBalance, String cin, String email) {
         this.id = id;
@@ -108,5 +111,13 @@ public class UserDto {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+   public List<Holiday> getHolidays() {
+        return holidays;
+    }
+
+    public void setHolidays(List<Holiday> holidays) {
+        this.holidays = holidays;
     }
 }

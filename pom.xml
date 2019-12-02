@@ -82,6 +82,12 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+
+        <testResources>
+            <testResource>
+                <directory>src/test/java/com.wecode</directory>
+            </testResource>
+        </testResources>
     </build>
 
 </project>

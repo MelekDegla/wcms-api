@@ -61,6 +61,10 @@ public class User {
             @JoinColumn(name = "ROLE_ID") })
     @JsonIgnoreProperties("users")
     private List<Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+   @JsonIgnoreProperties("user")
+    private List<Holiday> holidays;
 //@ManyToMany
 //    @JoinTable (
 //            name ="user_project" ,
@@ -182,5 +186,13 @@ public class User {
 
     public void addUserProject(UserProject userProject) {
        this.userProjects.add(userProject);
+    }
+
+    public List<Holiday> getHolidays() {
+        return holidays;
+    }
+
+    public void setHolidays(List<Holiday> holidays) {
+        this.holidays = holidays;
     }
 }
