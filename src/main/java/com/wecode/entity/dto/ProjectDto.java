@@ -17,7 +17,9 @@ public class ProjectDto {
 
     public float getEstimation() {
         int done = (int) tasks.stream().filter(task -> task.getStatus() == 4).count();
+        if (tasks.size()!=0)
         return done * 100 / tasks.size();
+        return 0;
     }
 
     public void setEstimation(float estimation) {

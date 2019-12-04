@@ -27,7 +27,7 @@ public class Task {
     @NotNull
     private Integer status;
 
-        private ArrayList<String> usernames;
+    private ArrayList<String> usernames;
 @ManyToOne
 @JsonIgnoreProperties({"tasks","userProjects"})
 private Project project ;
