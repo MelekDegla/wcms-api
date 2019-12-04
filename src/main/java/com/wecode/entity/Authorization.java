@@ -1,11 +1,8 @@
 package com.wecode.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.sql.Time;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 public class Authorization {
@@ -13,11 +10,23 @@ public class Authorization {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id ;
     private LocalDate date ;
-    private Time beginhour ;
-    private  Time endhour ;
+    private LocalTime beginhour ;
+    private  LocalTime endhour ;
     private  String reason ;
 
+    @ManyToOne
+    @JoinColumn(name ="user_id")
+    private User user;
+
     public Authorization() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -36,22 +45,6 @@ public class Authorization {
         this.date = date;
     }
 
-    public Time getBeginhour() {
-        return beginhour;
-    }
-
-    public void setBeginhour(Time beginhour) {
-        this.beginhour = beginhour;
-    }
-
-    public Time getEndhour() {
-        return endhour;
-    }
-
-    public void setEndhour(Time endhour) {
-        this.endhour = endhour;
-    }
-
     public String getReason() {
         return reason;
     }
@@ -60,10 +53,27 @@ public class Authorization {
         this.reason = reason;
     }
 
-    public Authorization(LocalDate date, Time beginhour, Time endhour, String reason) {
+    public Authorization(LocalDate date, LocalTime beginhour, LocalTime endhour, String reason) {
         this.date = date;
         this.beginhour = beginhour;
         this.endhour = endhour;
         this.reason = reason;
     }
+
+    public LocalTime getBeginhour() {
+        return beginhour;
+    }
+
+    public void setBeginhour(LocalTime beginhour) {
+        this.beginhour = beginhour;
+    }
+
+    public LocalTime getEndhour() {
+        return endhour;
+    }
+
+    public void setEndhour(LocalTime endhour) {
+        this.endhour = endhour;
+    }
+
 }

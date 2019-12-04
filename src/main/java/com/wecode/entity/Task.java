@@ -23,14 +23,19 @@ public class Task {
     @Size(min= 3, message = "Task Label Length Should Be at min 3 !")
     private String label;
     private String description;
+    private String problem;
 
     @NotNull
     private Integer status;
 
         private ArrayList<String> usernames;
-@ManyToOne
-@JsonIgnoreProperties({"tasks","userProjects"})
-private Project project ;
+        @ManyToOne
+        @JsonIgnoreProperties({"tasks","userProjects"})
+        private Project project ;
+
+        @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+        @JsonIgnoreProperties("task")
+        private List<Resource> resources;
 
     public Task(String label, String description, Integer status, Project project,ArrayList<String> usernames) {
         this.label = label;
@@ -40,6 +45,21 @@ private Project project ;
         this.project = project;
     }
 
+    public String getProblem() {
+        return problem;
+    }
+
+    public void setProblem(String problem) {
+        this.problem = problem;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
+    }
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("task")

@@ -5,6 +5,7 @@ import com.wecode.service.UserProjectService;
 import com.wecode.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
+@CrossOrigin("*")
 public class UserProjectController {
     @Autowired
     private UserProjectService userProjectService;
@@ -30,8 +32,7 @@ public class UserProjectController {
                     "\"}]," +
                     "\"subject\":\"You're added to a new Project\"}]," +
                     "\"from\":{\"email\":\"" +
-                            userService.findOne(SecurityContextHolder.getContext().getAuthentication()
-                                    .getName()).getEmail()+
+                    "mejrihaifa20@gmail.com"+
                     "\"}," +
                     "\"content\":[{\"type\":\"text/plain\"," +
                     "\"value\": \"" +

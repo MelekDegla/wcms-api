@@ -72,6 +72,17 @@ public class User {
 //    @JsonIgnoreProperties("user")
 //    private List<Project> projects ;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    private List<Authorization> authorizations;
+
+    public List<Authorization> getAuthorizations() {
+        return authorizations;
+    }
+
+    public void setAuthorizations(List<Authorization> authorizations) {
+        this.authorizations = authorizations;
+    }
 
     public long getId() {
         return id;

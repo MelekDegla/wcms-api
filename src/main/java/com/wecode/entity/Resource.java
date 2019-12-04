@@ -10,22 +10,31 @@ import java.util.List;
 public class Resource implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String name ;
     private String url;
 
-    private String ext;
+    public Resource() {
+    }
 
-    private String title;
-    private String description;
+    public Resource(String name, String url, Task task) {
+        this.name = name;
+        this.url = url;
+        this.task = task;
+    }
 
-    private boolean showResource;
-
-
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "task_id")
     private Task task ;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Task getTask() {
         return task;
@@ -51,35 +60,5 @@ public class Resource implements Serializable {
         this.url = url;
     }
 
-    public String getExt() {
-        return ext;
-    }
 
-    public void setExt(String ext) {
-        this.ext = ext;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isShowResource() {
-        return showResource;
-    }
-
-    public void setShowResource(boolean showResource) {
-        this.showResource = showResource;
-    }
 }
