@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3da15c40-e26d-4c11-bb10-f053dfb809cd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wecode/controller/HolidayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wecode/controller/HolidayController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wecode/entity/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wecode/entity/dto/UserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wecode/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wecode/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/wecode/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wecode/service/impl/UserServiceImpl.class" afterDir="false" />
-    </list>
+    <list default="true" id="3da15c40-e26d-4c11-bb10-f053dfb809cd" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -244,7 +237,7 @@
       <workItem from="1575321234526" duration="5072000" />
       <workItem from="1575482161267" duration="2550000" />
       <workItem from="1575495250387" duration="157000" />
-      <workItem from="1575496350517" duration="8751000" />
+      <workItem from="1575496350517" duration="9039000" />
     </task>
     <task id="LOCAL-00001" summary="Integration Test">
       <created>1574969471658</created>
@@ -260,7 +253,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575201751731</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="T1S3">
+      <created>1575507798609</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1575507798610</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -314,7 +314,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Integration Test" />
     <MESSAGE value="Unit + Integration Test &amp; Validators" />
-    <option name="LAST_COMMIT_MESSAGE" value="Unit + Integration Test &amp; Validators" />
+    <MESSAGE value="T1S3" />
+    <option name="LAST_COMMIT_MESSAGE" value="T1S3" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
