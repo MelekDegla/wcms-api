@@ -3,6 +3,9 @@ package com.wecode.controller;
 
 import com.wecode.entity.Holiday;
 import com.wecode.service.HolidayService;
+import com.wecode.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,9 +19,11 @@ public class HolidayController {
         this.holidayService = holidayService;
     }
 
+    @Autowired
+    private UserService userService;
     @GetMapping(value = "/holidays")
     public List<Holiday> findAll() {
-        return holidayService.findAll();
+        return userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()).getHolidays();
     }
 
     @GetMapping(value = "/holidays/{id}")
@@ -27,7 +32,8 @@ public class HolidayController {
     }
 
     @PostMapping(value="/holidays")
-    public Holiday saveProject(@RequestBody Holiday holiday){
+    public Holiday saveHoliday(@RequestBody Holiday holiday){
+        holiday.setUser(userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()));
         return holidayService.save(holiday);
     }
 

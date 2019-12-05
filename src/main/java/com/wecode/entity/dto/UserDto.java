@@ -15,7 +15,6 @@ public class UserDto {
     private String cin;
     private String email;
     private List<String> roles;
-   private List<Holiday> holidays;
 
     public UserDto(Long id, String username, String password, long salary, String birthdate, String address, Long leaveBalance, String cin, String email) {
         this.id = id;
@@ -113,11 +112,4 @@ public class UserDto {
         this.roles = roles;
     }
 
-   public List<Holiday> getHolidays() {
-        return holidays;
-    }
-
-    public void setHolidays(List<Holiday> holidays) {
-        this.holidays = holidays;
-    }
 }
