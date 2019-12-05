@@ -9,6 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectDto {
+    private Long id ;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<UserProject> getUserProjects() {
+        return userProjects;
+    }
+
     private String name ;
     private String description ;
     private  List<User> users = new ArrayList<>();
@@ -17,7 +31,7 @@ public class ProjectDto {
 
     public float getEstimation() {
         int done = (int) tasks.stream().filter(task -> task.getStatus() == 4).count();
-        if (tasks.size()!=0)
+        if(tasks.size()!=0)
         return done * 100 / tasks.size();
         return 0;
     }
@@ -39,6 +53,16 @@ public class ProjectDto {
         this.users = users;
         this.tasks = tasks;
     }
+
+    public ProjectDto(Long id, String name, String description, List<User> users, List<Task> tasks, float estimation) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.users = users;
+        this.tasks = tasks;
+        this.estimation = estimation;
+    }
+
     public ProjectDto() {
         super();
     }
