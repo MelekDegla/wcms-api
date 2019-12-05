@@ -76,6 +76,19 @@ public class User {
     @JsonIgnoreProperties("user")
     private List<Authorization> authorizations;
 
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    private List<Holiday> holidays;
+
+    public List<Holiday> getHolidays() {
+        return holidays;
+    }
+
+    public void setHolidays(List<Holiday> holidays) {
+        this.holidays = holidays;
+    }
+
     public List<Authorization> getAuthorizations() {
         return authorizations;
     }

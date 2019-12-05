@@ -22,29 +22,33 @@ public class UserProjectController {
 
     @PostMapping(value="userprojects")
     public UserProject saveProject(@RequestBody UserProject userProject) throws IOException {
-        try {
-            SendGrid sg = new SendGrid("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");
-            Request request = new Request();
-            request.setMethod(Method.POST);
-            request.setEndpoint("mail/send");
-            request.setBody("{\"personalizations\":[{\"to\":[{\"email\":\"" +
-                    userProject.getUser().getEmail()+
-                    "\"}]," +
-                    "\"subject\":\"You're added to a new Project\"}]," +
-                    "\"from\":{\"email\":\"" +
-                    "mejrihaifa20@gmail.com"+
-                    "\"}," +
-                    "\"content\":[{\"type\":\"text/plain\"," +
-                    "\"value\": \"" +
-                    userProject.getProject().getName() +
-                    "\"}]}");
-            Response response = sg.api(request);
-            System.out.println(response.getStatusCode());
-            System.out.println(response.getBody());
-            System.out.println(response.getHeaders());
-        } catch (IOException ex) {
-            throw ex;
-        }
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    SendGrid sg = new SendGrid("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");
+                    Request request = new Request();
+                    request.setMethod(Method.POST);
+                    request.setEndpoint("mail/send");
+//                    Mail mail = new Mail(new Email(userService.findOne(SecurityContextHolder.getContext().getAuthentication()
+//                            .getName()).getEmail())), "added to project", new Email(userProject.getUser().getEmail(), new Content("text/plain", userProject.getProject().getName()))
+//                    request.setBody();
+                    Response response = sg.api(request);
+                    System.out.println(response.getStatusCode());
+                    System.out.println(response.getBody());
+                    System.out.println(response.getHeaders());
+                } catch (IOException ex) {
+                    try {
+                        throw ex;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        t.run();
+
+
         return userProjectService.save(userProject);
     }
 

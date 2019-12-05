@@ -13,12 +13,21 @@ public class Authorization {
     private LocalTime beginhour ;
     private  LocalTime endhour ;
     private  String reason ;
+    private Integer status = 0;
 
     @ManyToOne
     @JoinColumn(name ="user_id")
     private User user;
 
     public Authorization() {
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public User getUser() {

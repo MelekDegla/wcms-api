@@ -4,6 +4,7 @@ import com.wecode.entity.Authorization;
 import com.wecode.service.AuthorizationService;
 import com.wecode.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,9 @@ public class AuthorizationController {
     private UserService userService;
     @GetMapping(value="/authorization")
     public List<Authorization> listAuthorization(){
-        return userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()).getAuthorizations();
+        return SecurityContextHolder.getContext().getAuthentication().getAuthorities()
+                .contains(new SimpleGrantedAuthority("ROLE_ADMIN")) ? authorizationService.findAll() :
+         userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()).getAuthorizations();
     }
 
 
