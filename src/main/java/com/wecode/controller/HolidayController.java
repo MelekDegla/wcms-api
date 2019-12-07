@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("*")
@@ -27,7 +28,7 @@ public class HolidayController {
     EmailService emailService;
     @GetMapping(value = "/holidays")
     public List<Holiday> findAll() {
-        return userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()).getHolidays();
+        return userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()).getRequests().stream().map(r ->(Holiday)r).collect(Collectors.toList());
     }
 
     @GetMapping(value = "/holidays/{id}")

@@ -72,29 +72,18 @@ public class User {
 //    @JsonIgnoreProperties("user")
 //    private List<Project> projects ;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+
+
+    @OneToMany
     @JsonIgnoreProperties("user")
-    private List<Authorization> authorizations;
+    private List<Request> requests;
 
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("user")
-    private List<Holiday> holidays;
-
-    public List<Holiday> getHolidays() {
-        return holidays;
+    public List<Request> getRequests() {
+        return requests;
     }
 
-    public void setHolidays(List<Holiday> holidays) {
-        this.holidays = holidays;
-    }
-
-    public List<Authorization> getAuthorizations() {
-        return authorizations;
-    }
-
-    public void setAuthorizations(List<Authorization> authorizations) {
-        this.authorizations = authorizations;
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
     }
 
     public long getId() {

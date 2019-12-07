@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("*")
@@ -27,7 +28,7 @@ public class AuthorizationController {
     public List<Authorization> listAuthorization(){
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities()
                 .contains(new SimpleGrantedAuthority("ROLE_ADMIN")) ? authorizationService.findAll() :
-         userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()).getAuthorizations();
+                 userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()).getRequests().stream().map(r -> (Authorization) r).collect(Collectors.toList());
     }
 
 
