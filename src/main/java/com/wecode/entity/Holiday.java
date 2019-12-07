@@ -1,20 +1,17 @@
 package com.wecode.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.wecode.entity.util.Request;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Date;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Entity
-public class Holiday {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
-
+public class Holiday extends Request {
 
     private String startDate;
 
@@ -28,30 +25,26 @@ public class Holiday {
     @JsonIgnoreProperties("holidays")
     private User user;
 
-    public Holiday() {}
+    public Holiday(int id, Date dateRequest) {
+        super(id, dateRequest);
+    }
 
-    public Holiday( String startDate,  String endDate, User user, int isValidated) {
+    public Holiday(int id, Date dateRequest, String startDate,  String endDate, User user, int isValidated) {
+        super(id, dateRequest);
         this.startDate = startDate;
         this.endDate = endDate;
         this.user = user;
         this.isValidated = isValidated;
     }
 
-    public Holiday( String startDate,  String endDate, User user) {
+
+    public Holiday(int id, Date dateRequest, String startDate, String endDate, User user) {
+        super(id, dateRequest);
         this.startDate = startDate;
         this.endDate = endDate;
         this.user = user;
     }
 
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getStartDate() {
         return startDate;

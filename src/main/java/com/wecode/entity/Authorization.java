@@ -1,14 +1,14 @@
 package com.wecode.entity;
 
+import com.wecode.entity.util.Request;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Entity
-public class Authorization {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id ;
+public class Authorization extends Request {
     private LocalDate date ;
     private LocalTime beginhour ;
     private  LocalTime endhour ;
@@ -19,7 +19,18 @@ public class Authorization {
     @JoinColumn(name ="user_id")
     private User user;
 
-    public Authorization() {
+    public Authorization(int id, Date dateRequest, LocalDate date, LocalTime beginhour, LocalTime endhour, String reason, Integer status, User user) {
+        super(id, dateRequest);
+        this.date = date;
+        this.beginhour = beginhour;
+        this.endhour = endhour;
+        this.reason = reason;
+        this.status = status;
+        this.user = user;
+    }
+
+    public Authorization(int id, Date dateRequest) {
+        super(id, dateRequest);
     }
 
     public Integer getStatus() {
@@ -38,14 +49,6 @@ public class Authorization {
         this.user = user;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public LocalDate getDate() {
         return date;
     }
@@ -62,12 +65,6 @@ public class Authorization {
         this.reason = reason;
     }
 
-    public Authorization(LocalDate date, LocalTime beginhour, LocalTime endhour, String reason) {
-        this.date = date;
-        this.beginhour = beginhour;
-        this.endhour = endhour;
-        this.reason = reason;
-    }
 
     public LocalTime getBeginhour() {
         return beginhour;
