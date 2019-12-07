@@ -1,7 +1,5 @@
 package com.wecode.entity;
 
-import com.wecode.entity.util.Request;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,40 +11,25 @@ public class Authorization extends Request {
     private LocalTime beginhour ;
     private  LocalTime endhour ;
     private  String reason ;
-    private Integer status = 0;
 
-    @ManyToOne
-    @JoinColumn(name ="user_id")
-    private User user;
-
-    public Authorization(int id, Date dateRequest, LocalDate date, LocalTime beginhour, LocalTime endhour, String reason, Integer status, User user) {
-        super(id, dateRequest);
+    public Authorization(Date dateRequest,int status, LocalDate date, LocalTime beginhour, LocalTime endhour, String reason, User user) {
+        super(dateRequest,status, user);
         this.date = date;
         this.beginhour = beginhour;
         this.endhour = endhour;
         this.reason = reason;
-        this.status = status;
-        this.user = user;
     }
 
-    public Authorization(int id, Date dateRequest) {
-        super(id, dateRequest);
+    public Authorization(int status, Date dateRequest, User user) {
+        super(dateRequest,status, user);
     }
 
-    public Integer getStatus() {
-        return status;
+    public Authorization() {
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public Authorization(Date dateRequest, int status, User user, LocalDate date) {
+        super(dateRequest, status, user);
+        this.date = date;
     }
 
     public LocalDate getDate() {

@@ -51,36 +51,39 @@ public class HolidayController {
         return holidayService.update(holiday);
     }
 
-    @PutMapping(value = "/holidays/accept" )
-    public Holiday accept(@RequestBody Holiday holiday){
-        holiday.setIsValidated(1);
-        new Thread(() -> {
-            try {
-                emailService.sendMail(
-                        holiday.getUser().getEmail(),
-                        "You're Holiday is accepted  ",
-                        holiday.getStartDate().toString()+ " "+ holiday.getEndDate().toString());
+    @PutMapping(value = "/holidays/validate/{status}" )
+    public Holiday validate(@RequestBody Holiday holiday, @PathVariable(name = "status") int status){
+        holiday.setStatus(status);
+        if(status == -1) {
+            new Thread(() -> {
+                try {
+                    emailService.sendMail(
+                            holiday.getUser().getEmail(),
+                            "You're holiday is accepted  ",
+                            "vvfgffgdf");
+                    //    authorization.getDate().toString());
 
-            } catch (MessagingException ex) {
-                ex.printStackTrace();
-            }
-        }).start();
+                } catch (MessagingException ex) {
+                    ex.printStackTrace();
+                }
+            }).start();
+        }
+        else if (status == 1 )
+        {
+            new Thread(() -> {
+                try {
+                    emailService.sendMail(
+                            holiday.getUser().getEmail(),
+                            "You're holiday is refused  ",
+                            "vvfgffgdf");
+                    //    authorization.getDate().toString());
+
+                } catch (MessagingException ex) {
+                    ex.printStackTrace();
+                }
+            }).start();
+        }
         return holidayService.update(holiday);
     }
-    @PutMapping(value = "/holidays/reject" )
-    public Holiday reject(@RequestBody Holiday holiday){
-        holiday.setIsValidated(-1);
-        new Thread(() -> {
-            try {
-                emailService.sendMail(
-                        holiday.getUser().getEmail(),
-                        "You're Holiday is accepted  ",
-                        holiday.getStartDate().toString()+ " "+ holiday.getEndDate().toString());
 
-            } catch (MessagingException ex) {
-                ex.printStackTrace();
-            }
-        }).start();
-        return holidayService.update(holiday);
-    }
 }

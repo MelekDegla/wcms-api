@@ -51,36 +51,36 @@ public class AuthorizationController {
     public Authorization update(@RequestBody Authorization authorization){
         return authorizationService.update(authorization);
     }
-    @PutMapping(value = "/authorization/accept" )
-    public Authorization accept(@RequestBody Authorization authorization){
-        authorization.setStatus(1);
-        new Thread(() -> {
-            try {
-                emailService.sendMail(
-                        authorization.getUser().getEmail(),
-                        "You're authorization is accepted  ",
-                         authorization.getDate().toString());
+    @PutMapping(value = "/authorization/validate/{status}" )
+    public Authorization validate(@RequestBody Authorization authorization, @PathVariable(name = "status") int status){
+        authorization.setStatus(status);
+        if(status == 1) {
+            new Thread(() -> {
+                try {
+                    emailService.sendMail(
+                            authorization.getUser().getEmail(),
+                            "You're authorization is accepted  ",
+                       authorization.getDate().toString());
 
-            } catch (MessagingException ex) {
-                ex.printStackTrace();
-            }
-        }).start();
-        return authorizationService.update(authorization);
-    }
-    @PutMapping(value = "/authorization/reject" )
-    public Authorization reject(@RequestBody Authorization authorization){
-        authorization.setStatus(-1);
-        new Thread(() -> {
-            try {
-                emailService.sendMail(
-                        authorization.getUser().getEmail(),
-                        "You're authorization is refused  ",
-                        authorization.getDate().toString());
+                } catch (MessagingException ex) {
+                    ex.printStackTrace();
+                }
+            }).start();
+        }
+        else if (status == -1 )
+        {
+            new Thread(() -> {
+                try {
+                    emailService.sendMail(
+                            authorization.getUser().getEmail(),
+                            "You're authorization is refused  ",
+                       authorization.getDate().toString());
 
-            } catch (MessagingException ex) {
-                ex.printStackTrace();
-            }
-        }).start();
+                } catch (MessagingException ex) {
+                    ex.printStackTrace();
+                }
+            }).start();
+        }
         return authorizationService.update(authorization);
     }
 
