@@ -3,54 +3,26 @@ package com.wecode.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-
-import static java.time.temporal.ChronoUnit.DAYS;
+import java.util.Date;
 
 @Entity
-public class Holiday {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
-
+public class Holiday extends Request {
 
     private String startDate;
 
-
     private String endDate;
 
-    private int isValidated = 0;
+    public Holiday(Date dateRequest,int status, User user) {
+        super(dateRequest,status,user);
+    }
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties("holidays")
-    private User user;
-
-    public Holiday() {}
-
-    public Holiday( String startDate,  String endDate, User user, int isValidated) {
+    public Holiday(Date dateRequest, int status, String startDate,  String endDate, User user) {
+        super(dateRequest,status,user);
         this.startDate = startDate;
         this.endDate = endDate;
-        this.user = user;
-        this.isValidated = isValidated;
     }
 
-    public Holiday( String startDate,  String endDate, User user) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.user = user;
-    }
-
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Holiday() {
     }
 
     public String getStartDate() {
@@ -69,19 +41,7 @@ public class Holiday {
         this.endDate = endDate;
     }
 
-    public int getIsValidated() {
-        return isValidated;
-    }
 
-    public void setIsValidated(int isValidated) {
-        this.isValidated = isValidated;
-    }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

@@ -3,47 +3,33 @@ package com.wecode.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Entity
-public class Authorization {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id ;
+public class Authorization extends Request {
     private LocalDate date ;
     private LocalTime beginhour ;
     private  LocalTime endhour ;
     private  String reason ;
-    private Integer status = 0;
 
-    @ManyToOne
-    @JoinColumn(name ="user_id")
-    private User user;
+    public Authorization(Date dateRequest,int status, LocalDate date, LocalTime beginhour, LocalTime endhour, String reason, User user) {
+        super(dateRequest,status, user);
+        this.date = date;
+        this.beginhour = beginhour;
+        this.endhour = endhour;
+        this.reason = reason;
+    }
+
+    public Authorization(int status, Date dateRequest, User user) {
+        super(dateRequest,status, user);
+    }
 
     public Authorization() {
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Authorization(Date dateRequest, int status, User user, LocalDate date) {
+        super(dateRequest, status, user);
+        this.date = date;
     }
 
     public LocalDate getDate() {
@@ -62,12 +48,6 @@ public class Authorization {
         this.reason = reason;
     }
 
-    public Authorization(LocalDate date, LocalTime beginhour, LocalTime endhour, String reason) {
-        this.date = date;
-        this.beginhour = beginhour;
-        this.endhour = endhour;
-        this.reason = reason;
-    }
 
     public LocalTime getBeginhour() {
         return beginhour;
