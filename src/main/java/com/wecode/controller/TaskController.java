@@ -36,7 +36,8 @@ public class TaskController {
     @PutMapping(value = "/tasks")
     public Task update(@RequestBody Task task){
         Task tsk = taskService.update(task, SecurityContextHolder.getContext().getAuthentication().getName());
-        simpMessagingTemplate.convertAndSend("/socket-front-project", tsk.getProject());
+*        simpMessagingTemplate.convertAndSend("/socket-front-project/" + task.getProject().getId(), tsk.getProject());
+
         return tsk;
 
     }
