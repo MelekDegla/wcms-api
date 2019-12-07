@@ -2,8 +2,10 @@ package com.wecode.controller;
 
 import com.wecode.entity.Authorization;
 import com.wecode.service.AuthorizationService;
+import com.wecode.service.EmailService;
 import com.wecode.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.MessagingException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,9 @@ public class AuthorizationController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    EmailService emailService;
+
     @GetMapping(value="/authorization")
     public List<Authorization> listAuthorization(){
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities()
@@ -46,4 +51,37 @@ public class AuthorizationController {
     public Authorization update(@RequestBody Authorization authorization){
         return authorizationService.update(authorization);
     }
+    @PutMapping(value = "/authorization/validate/{status}" )
+    public Authorization validate(@RequestBody Authorization authorization, @PathVariable(name = "status") int status){
+        authorization.setStatus(status);
+        if(status == 1) {
+            new Thread(() -> {
+                try {
+                    emailService.sendMail(
+                            authorization.getUser().getEmail(),
+                            "You're authorization is accepted  ",
+                       authorization.getDate().toString());
+
+                } catch (MessagingException ex) {
+                    ex.printStackTrace();
+                }
+            }).start();
+        }
+        else if (status == -1 )
+        {
+            new Thread(() -> {
+                try {
+                    emailService.sendMail(
+                            authorization.getUser().getEmail(),
+                            "You're authorization is refused  ",
+                       authorization.getDate().toString());
+
+                } catch (MessagingException ex) {
+                    ex.printStackTrace();
+                }
+            }).start();
+        }
+        return authorizationService.update(authorization);
+    }
+
 }
