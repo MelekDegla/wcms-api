@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,5 +69,17 @@ public class UserController {
        return notificationService.findAllByUser(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
+    @RequestMapping(value = "/notifs/viewed")
+    public List<Notification> markAsViewed(){
+       User user = userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName());
+       List<Notification> notifications = user.getNotifications();
+       List<Notification> notificationsnew = new ArrayList<>();
+
+       notifications.forEach(n ->{
+           n.setViewed(true);
+           notificationsnew.add(n) ;
+       } );
+       return notificationService.saveAll(notificationsnew);
+    }
 
 }

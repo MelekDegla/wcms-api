@@ -29,6 +29,10 @@ public class NotificationService {
         simpMessagingTemplate.convertAndSend("/notifications/"+ notif.getUser().getUsername(), notif);
         return notif;
     }
+    public List<Notification> saveAll(List<Notification> notifications){
+        return notificationRepository.saveAll(notifications);
+    }
+
     public Notification update (Notification notification){ return notificationRepository.save(notification); }
     public Notification findById(Long id){return notificationRepository.findById(id).get();}
     public  void deleteById(Long id){notificationRepository.deleteById(id);}
