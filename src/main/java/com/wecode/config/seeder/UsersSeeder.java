@@ -36,7 +36,7 @@ public class UsersSeeder {
             userService.save(user3);
                     UserDto user1 = new UserDto(null,"Degla" ,"degla123" ,1150L ,
                             "1997/6/7","address" ,30L ,
-                            "13014570", "melek@gmail.com");
+                            "13014570", "melek199767@gmail.com");
                     user1.setRoles(rolesAdmin);
                     userService.save(user1);
         }

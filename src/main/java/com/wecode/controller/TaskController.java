@@ -1,8 +1,11 @@
 package com.wecode.controller;
 
 import com.wecode.entity.Task;
+import com.wecode.entity.User;
 import com.wecode.repository.UserProjectRepository;
 import com.wecode.service.TaskService;
+import com.wecode.service.UserService;
+import com.wecode.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,9 +18,8 @@ import java.util.List;
 public class TaskController {
     @Autowired
     private TaskService taskService;
-
     @Autowired
-    private UserProjectRepository userProjectRepository;
+    private UserService userService;
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
@@ -34,8 +36,13 @@ public class TaskController {
     public Task update(@RequestBody Task task){
         Task tsk = taskService.update(task, SecurityContextHolder.getContext().getAuthentication().getName());
         simpMessagingTemplate.convertAndSend("/socket-front-project", tsk.getProject());
-
         return tsk;
+
+    }
+    @PutMapping(value = "/tasks/join")
+    public Task join(@RequestBody Task task){
+        task.getUsernames().add(SecurityContextHolder.getContext().getAuthentication().getName());
+       return taskService.update(task);
 
     }
     @DeleteMapping(value = "/tasks/{id}")
