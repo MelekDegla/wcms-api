@@ -8,10 +8,10 @@ import java.util.Date;
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private Date dateRequest;
     private int status;
-
+    private String rejectionReason;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -25,11 +25,11 @@ public class Request {
         this.user = user;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -55,5 +55,24 @@ public class Request {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
+    }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "id=" + id +
+                ", dateRequest=" + dateRequest +
+                ", status=" + status +
+                ", rejectionReason='" + rejectionReason + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

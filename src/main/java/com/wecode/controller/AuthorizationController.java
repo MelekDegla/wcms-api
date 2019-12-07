@@ -52,10 +52,10 @@ public class AuthorizationController {
     public Authorization update(@RequestBody Authorization authorization){
         return authorizationService.update(authorization);
     }
-    @PutMapping(value = "/authorization/validate/{status}" )
-    public Authorization validate(@RequestBody Authorization authorization, @PathVariable(name = "status") int status){
-        authorization.setStatus(status);
-        if(status == 1) {
+    @PutMapping(value = "/authorization/validate" )
+    public Authorization validate(@RequestBody Authorization authorization){
+        authorization.setStatus(authorization.getStatus());
+        if(authorization.getStatus() == 1) {
             new Thread(() -> {
                 try {
                     emailService.sendMail(
@@ -68,14 +68,14 @@ public class AuthorizationController {
                 }
             }).start();
         }
-        else if (status == -1 )
+        else if (authorization.getStatus() == -1 )
         {
             new Thread(() -> {
                 try {
                     emailService.sendMail(
                             authorization.getUser().getEmail(),
                             "You're authorization is refused  ",
-                       authorization.getDate().toString());
+                       authorization.getDate().toString() + " Reason : "+ authorization.getRejectionReason());
 
                 } catch (MessagingException ex) {
                     ex.printStackTrace();
