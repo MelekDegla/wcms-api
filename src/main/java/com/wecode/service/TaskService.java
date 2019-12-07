@@ -67,6 +67,10 @@ public class TaskService {
         return tsk;
     }
 
+    public Task update (Task task) {
+       return taskRepository.save(task);
+    }
+
     public Task findById(Long id){
         return taskRepository.findById(id).get();
     }
