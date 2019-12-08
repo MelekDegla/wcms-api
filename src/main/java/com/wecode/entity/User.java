@@ -74,7 +74,7 @@ public class User {
 
 
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("user")
     private List<Request> requests;
 

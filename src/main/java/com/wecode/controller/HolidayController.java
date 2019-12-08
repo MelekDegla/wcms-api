@@ -33,19 +33,11 @@ public class HolidayController {
     ModelMapper modelMapper;
     @GetMapping(value = "/holidays")
     public List<Holiday> findAll() {
-//        return userService.findOne(
-//                SecurityContextHolder.getContext().getAuthentication().getName())
-//                .getRequests()
-//                .stream().map(r ->(Holiday)r).collect(Collectors.toList());
-        List<Holiday> listH = new ArrayList<Holiday>();
-        List<Request> listR  = userService.findOne(
+        return userService.findOne(
                 SecurityContextHolder.getContext().getAuthentication().getName())
-                .getRequests();
-        for(Request r : listR) {
-            if(r instanceof Holiday)
-                listH.add((Holiday) r);
-        }
-        return listH;
+                .getRequests()
+                .stream().map(r ->(Holiday)r).collect(Collectors.toList());
+
     }
 
     @GetMapping(value = "/holidays/{id}")
