@@ -1,6 +1,7 @@
 package com.wecode.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -9,7 +10,10 @@ public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
     private Date dateRequest;
+
     private int status;
     private String rejectionReason;
     @ManyToOne

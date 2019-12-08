@@ -38,13 +38,24 @@ class UserControllerUnitTest {
         user.setSalary(1000);
         user.setCin("15009308");
         user.setEmail("karim@gmail.com");
-        user.setLeaveBalance((long)0);
+        user.setLeaveBalance(0L);
+        user.setFirstName("Karim");
+        user.setLastName("Mannai");
+        user.setFacebook("Facebook");
+        user.setInstagram("Instagram");
+        user.setLinkedin("LinkedIn");
+
 
         assertNotNull(user.getUsername());
         assertNotNull(user.getPassword());
         assertNotNull(user.getBirthdate());
         assertNotNull(user.getCin());
         assertNotNull(user.getEmail());
+        assertNotNull(user.getFacebook());
+        assertNotNull(user.getLastName());
+        assertNotNull(user.getFacebook());
+        assertNotNull(user.getInstagram());
+        assertNotNull(user.getLinkedin());
 
         assert user.getUsername().length() >=3 : "Username Length Should Be At Least 3!";
         assert user.getPassword().length() >=6 : "Password Length Should Be At Least 3!";
@@ -99,6 +110,11 @@ class UserControllerUnitTest {
         assertEquals(us.getCin(), user.getCin());
         assertEquals(us.getEmail(), user.getEmail());
         assertEquals(us.getLeaveBalance(), user.getLeaveBalance());
+        assertEquals(us.getFacebook(), user.getFacebook());
+        assertEquals(us.getInstagram(), user.getInstagram());
+        assertEquals(us.getLinkedin(), user.getLinkedin());
+        assertEquals(us.getFirstName(), user.getFirstName());
+        assertEquals(us.getLastName(), user.getLastName());
 
         assert user.getUsername().length() >=3 : "Username Length Should Be At Least 3!";
         assert us.getPassword().length() >=6 : "Password Length Should Be At Least 3!";

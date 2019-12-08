@@ -25,4 +25,6 @@ public class HolidayService {
     public Holiday findById(long id) {return holidayRepository.findById(id).get();}
 
     public List<Holiday> findAll() {return  holidayRepository.findAll();}
+    // For Test
+    public Holiday findByEndDate(String endDate) {return holidayRepository.findByEndDate(endDate);}
 }

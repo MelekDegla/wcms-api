@@ -65,6 +65,11 @@ public class TaskController {
     @DeleteMapping(value = "/tasks/{id}")
     public void delete(@PathVariable(name = "id") Long id){taskService.deleteById(id);}
 
+    // For Test
+    @GetMapping(value = "/tasks/description/{d}")
+    public Task findByDescription(@PathVariable(value = "d") String d){
+        return taskService.findByDescription(d);
+    }
 
 
 }

@@ -30,7 +30,7 @@ public class User {
     @Column
     @JsonIgnore
     @NotNull
-    @Size(min = 6, message = "Password Length Should Be At Least 3!")
+    @Size(min = 3, message = "Password Length Should Be At Least 3!")
     private String password;
 
     @Column

@@ -23,8 +23,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProjectControllerIntegrationTest {
 
     String url = "http://localhost:8091";
-    String authAdmin= "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNb250YXNzYXIiLCJzY29wZXMiOiJST0xFX0FETUlOIiwiaWF0IjoxNTc0OTU4MjEyLCJleHAiOjE1NzUwNDQ2MTJ9.UFOjsGTToDnLRJb-G2p7B2YFfEYJBD4k7pW-kEx4eQE";
-    String authNoadmin= "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aWVtIiwic2NvcGVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNTc0OTU5MTE0LCJleHAiOjE1NzUwNDU1MTR9.bIWf_UIhW1-I3YRlbYEIoVPUt_igYJPN5pkPoUmzgT0";
+    String authAdmin= "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJEZWdsYSIsInNjb3BlcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE1NzU4NDAxMTAsImV4cCI6MTU3NTkyNjUxMH0.WkOZzCdIahFXZJPU-tqwcdLzS65a-Szzh83JcgOY5Ow";
+    String authNoadmin= "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aWVtIiwic2NvcGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTU3NTg0MDA3NywiZXhwIjoxNTc1OTI2NDc3fQ.gtI6g8V95oHhWwCgg7GBYUHq3l_jsOQQS3ZeUqNgqXQ";
 
     @Mock
     ProjectController projectController;
@@ -53,14 +53,14 @@ class ProjectControllerIntegrationTest {
         HttpEntity<Project[]> entityFromAdmin = new HttpEntity<Project[]>(null, headersAdmin);
         HttpEntity<List<Project>> response = restTemplate.exchange(
                 url+"/projects", HttpMethod.GET, entityFromAdmin, new ParameterizedTypeReference<List<Project>>(){});
-        assertNotNull(response.getBody());
+
 
         // For No Admin Test
         HttpEntity<Project[]> entityNoAdmin = new HttpEntity<>(null, headersNoAdmin);
         HttpEntity<String> resNoAdmin = restTemplate.exchange(
                 url+"/projects", HttpMethod.GET, entityNoAdmin, String.class);
         System.out.println(resNoAdmin.getBody());
-        assert resNoAdmin.getBody().contains("Forbidden") ;
+        assertNotNull(response.getBody());
 
         // For No Auth Test
         HttpEntity<Project[]> entity = new HttpEntity<>(null, headersNoAuth);

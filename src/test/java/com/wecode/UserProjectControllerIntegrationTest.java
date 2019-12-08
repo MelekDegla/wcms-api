@@ -19,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class UserProjectControllerIntegrationTest {
 
     String url = "http://localhost:8091";
-    String authAdmin = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNb250YXNzYXIiLCJzY29wZXMiOiJST0xFX0FETUlOIiwiaWF0IjoxNTc1MTk4OTA5LCJleHAiOjE1NzUyODUzMDl9.ZJZ4zygIFKMdh4vZR_PlKkuQsgksyjf-9m1Cktfp3bM";
-    String authNoadmin = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aWVtIiwic2NvcGVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNTc1MTk4OTQ0LCJleHAiOjE1NzUyODUzNDR9.JUby7uAl93pftDPpXGAh6zwmj_fXyi9vrsFQvUg8unA";
+    String authAdmin= "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJEZWdsYSIsInNjb3BlcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE1NzU4NDAxMTAsImV4cCI6MTU3NTkyNjUxMH0.WkOZzCdIahFXZJPU-tqwcdLzS65a-Szzh83JcgOY5Ow";
+    String authNoadmin= "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aWVtIiwic2NvcGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTU3NTg0MDA3NywiZXhwIjoxNTc1OTI2NDc3fQ.gtI6g8V95oHhWwCgg7GBYUHq3l_jsOQQS3ZeUqNgqXQ";
 
 
     @Mock
