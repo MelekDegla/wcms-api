@@ -2,14 +2,17 @@ package com.wecode.controller;
 
 
 import com.wecode.entity.Holiday;
+import com.wecode.entity.Request;
 import com.wecode.service.EmailService;
 import com.wecode.service.HolidayService;
 import com.wecode.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.MessagingException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,9 +29,23 @@ public class HolidayController {
     private UserService userService;
     @Autowired
     EmailService emailService;
+    @Autowired
+    ModelMapper modelMapper;
     @GetMapping(value = "/holidays")
     public List<Holiday> findAll() {
-        return userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()).getRequests().stream().map(r ->(Holiday)r).collect(Collectors.toList());
+//        return userService.findOne(
+//                SecurityContextHolder.getContext().getAuthentication().getName())
+//                .getRequests()
+//                .stream().map(r ->(Holiday)r).collect(Collectors.toList());
+        List<Holiday> listH = new ArrayList<Holiday>();
+        List<Request> listR  = userService.findOne(
+                SecurityContextHolder.getContext().getAuthentication().getName())
+                .getRequests();
+        for(Request r : listR) {
+            if(r instanceof Holiday)
+                listH.add((Holiday) r);
+        }
+        return listH;
     }
 
     @GetMapping(value = "/holidays/{id}")
@@ -52,32 +69,30 @@ public class HolidayController {
         return holidayService.update(holiday);
     }
 
-    @PutMapping(value = "/holidays/validate/{status}" )
-    public Holiday validate(@RequestBody Holiday holiday, @PathVariable(name = "status") int status){
-        holiday.setStatus(status);
-        if(status == -1) {
+    @PutMapping(value = "/holidays/validate" )
+    public Holiday validate(@RequestBody Holiday holiday){
+        holiday.setStatus(holiday.getStatus());
+        if(holiday.getStatus() == -1) {
             new Thread(() -> {
                 try {
                     emailService.sendMail(
                             holiday.getUser().getEmail(),
                             "You're holiday is accepted  ",
-                            "vvfgffgdf");
-                    //    authorization.getDate().toString());
+                        holiday.getStartDate());
 
                 } catch (MessagingException ex) {
                     ex.printStackTrace();
                 }
             }).start();
         }
-        else if (status == 1 )
+        else if (holiday.getStatus() == 1 )
         {
             new Thread(() -> {
                 try {
                     emailService.sendMail(
                             holiday.getUser().getEmail(),
                             "You're holiday is refused  ",
-                            "vvfgffgdf");
-                    //    authorization.getDate().toString());
+                        holiday.getRejectionReason() );
 
                 } catch (MessagingException ex) {
                     ex.printStackTrace();
