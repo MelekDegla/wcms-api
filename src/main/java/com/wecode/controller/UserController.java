@@ -1,9 +1,11 @@
 package com.wecode.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.wecode.entity.Notification;
 import com.wecode.entity.User;
 
 import com.wecode.entity.dto.UserDto;
+import com.wecode.entity.util.ChangePasswordVM;
 import com.wecode.service.NotificationService;
 import com.wecode.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -80,6 +82,13 @@ public class UserController {
            notificationsnew.add(n) ;
        } );
        return notificationService.saveAll(notificationsnew);
+    }
+
+    @RequestMapping(value = "/password", method = RequestMethod.POST)
+    public Boolean changePassword(@RequestBody ChangePasswordVM user)
+    {
+        User us = userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName());
+        return userService.changePassword(user, us.getUsername());
     }
 
 }
