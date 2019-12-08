@@ -63,27 +63,5 @@ public class Application implements CommandLineRunner {
         seedByOrder.init();
         User  user = userService.findById(1L);
         userService.save(new UserDto(user.getId(), user.getUsername(), user.getPassword(), 10000000L,user.getBirthdate(), user.getAddress(), user.getLeaveBalance(), user.getCin(), user.getEmail()));
-        MailjetClient client;
-        MailjetRequest request;
-        MailjetResponse response;
-        client = new MailjetClient("93c373f34156c25b304ffa292f30d7b6", "ff6a12a1ffb0dee28c9b1ce37dcbe543", new ClientOptions("v3.1"));
-        request = new MailjetRequest(Emailv31.resource)
-                .property(Emailv31.MESSAGES, new JSONArray()
-                        .put(new JSONObject()
-                                .put(Emailv31.Message.FROM, new JSONObject()
-                                        .put("Email", "melek.degla14@gmail.com")
-                                        .put("Name", "Melek"))
-                                .put(Emailv31.Message.TO, new JSONArray()
-                                        .put(new JSONObject()
-                                                .put("Email", "melek199767@gmail.com")
-                                                .put("Name", "Melek")))
-                                .put(Emailv31.Message.SUBJECT, "Greetings from Mailjet.")
-                                .put(Emailv31.Message.TEXTPART, "My first Mailjet email")
-                                .put(Emailv31.Message.HTMLPART, "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!")
-                                .put(Emailv31.Message.CUSTOMID, "AppGettingStartedTest")));
-        response = client.post(request);
-        System.out.println(response.getStatus());
-        System.out.println(response.getData());
-
     }
 }

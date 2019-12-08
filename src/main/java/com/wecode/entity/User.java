@@ -19,6 +19,9 @@ public class User {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
+    private String firstName;
+    private String lastName;
+
     @Column(unique = true)
     @NotNull
     @Size(min = 3, message = "Username Length Should Be At Least 3!")
@@ -41,6 +44,11 @@ public class User {
     private String address;
 
     private Long leaveBalance;
+
+    private String rib;
+    private String facebook;
+    private String instagram;
+    private String linkedin;
 
     @Column(unique = true)
     @NotNull
@@ -167,6 +175,37 @@ public class User {
         this.email = email;
     }
 
+    public String getRib() {
+        return rib;
+    }
+
+    public void setRib(String rib) {
+        this.rib = rib;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
+
+    public String getLinkedin() {
+        return linkedin;
+    }
+
+    public void setLinkedin(String linkedin) {
+        this.linkedin = linkedin;
+    }
 
 //    public List<Project> getProjects() {
 //        return projects;
@@ -203,7 +242,19 @@ public class User {
        this.userProjects.add(userProject);
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
+    public String getLastName() {
+        return lastName;
+    }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }
