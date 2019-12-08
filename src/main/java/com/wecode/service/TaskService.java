@@ -54,6 +54,9 @@ public class TaskService {
     @Transactional
     public Task update (Task task, String username){
         String init = checkStatus(findById(task.getId()));
+        Task task1 = findById(task.getId());
+        task.setResources(task1.getResources());
+        task.setUsernames(task1.getUsernames());
         Task tsk = taskRepository.save(task);
 
         Project project = projectRepository.findById(tsk.getProject().getId()).get();
@@ -68,6 +71,8 @@ public class TaskService {
     }
 
     public Task update (Task task) {
+        Task tsk = findById(task.getId());
+        task.setResources(tsk.getResources());
        return taskRepository.save(task);
     }
 

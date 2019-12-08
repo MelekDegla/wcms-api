@@ -2,10 +2,12 @@ package com.wecode.controller;
 
 import com.wecode.entity.Task;
 import com.wecode.entity.User;
+import com.wecode.entity.dto.ProjectDto;
 import com.wecode.repository.UserProjectRepository;
 import com.wecode.service.TaskService;
 import com.wecode.service.UserService;
 import com.wecode.service.impl.UserServiceImpl;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +25,8 @@ public class TaskController {
     private UserService userService;
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @GetMapping(value ="/tasks")
     public List<Task> listTask(){return taskService.findAll();}
@@ -36,7 +40,7 @@ public class TaskController {
     @PutMapping(value = "/tasks")
     public Task update(@RequestBody Task task){
         Task tsk = taskService.update(task, SecurityContextHolder.getContext().getAuthentication().getName());
-       simpMessagingTemplate.convertAndSend("/socket-front-project/" + task.getProject().getId(), tsk.getProject());
+       simpMessagingTemplate.convertAndSend("/socket-front-project/" + task.getProject().getId(), modelMapper.map(tsk.getProject(), ProjectDto.class));
 
         return tsk;
 
@@ -61,11 +65,6 @@ public class TaskController {
     @DeleteMapping(value = "/tasks/{id}")
     public void delete(@PathVariable(name = "id") Long id){taskService.deleteById(id);}
 
-    // For Test
-    @GetMapping(value = "/tasks/description/{d}")
-    public Task findByDescription(@PathVariable(value = "d") String d){
-        return taskService.findByDescription(d);
-    }
 
 
 }

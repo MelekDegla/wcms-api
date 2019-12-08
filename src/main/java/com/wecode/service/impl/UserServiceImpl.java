@@ -83,13 +83,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		newUser.setAddress(user.getAddress());
 		newUser.setCin(user.getCin());
 		newUser.setLeaveBalance(user.getLeaveBalance());
-		if( user.getRoles() != null){
+		if( user.getRoles() != null ){
             for (String role: user.getRoles()) {
                 newUser.getRoles().add(roleRepository.findByName(role));
             }
         }
 		else{
-            newUser.getRoles().add(roleRepository.findByName("ADMIN" +
+            newUser.getRoles().add(roleRepository.findByName("USER" +
                     ""));
 
         }
