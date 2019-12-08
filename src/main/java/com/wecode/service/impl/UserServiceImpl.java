@@ -91,12 +91,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		newUser.setFacebook(user.getFacebook());
 		newUser.setInstagram(user.getInstagram());
 		if( user.getRoles() != null){
+
             for (String role: user.getRoles()) {
                 newUser.getRoles().add(roleRepository.findByName(role));
             }
         }
 		else{
-            newUser.getRoles().add(roleRepository.findByName("ADMIN" +
+            newUser.getRoles().add(roleRepository.findByName("USER" +
                     ""));
 
         }
