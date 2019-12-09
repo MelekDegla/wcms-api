@@ -11,8 +11,17 @@ public class Holiday extends Request {
     private String startDate;
 
     private String endDate;
+    private  String reason ;
 
-    public Holiday(Date dateRequest,int status, User user) {
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public Holiday(Date dateRequest, int status, User user) {
         super(dateRequest,status,user);
     }
 

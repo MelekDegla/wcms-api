@@ -9,6 +9,7 @@ import com.wecode.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.MessagingException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,8 @@ public class HolidayController {
     ModelMapper modelMapper;
     @GetMapping(value = "/holidays")
     public List<Holiday> findAll() {
-        return userService.findOne(
+        return SecurityContextHolder.getContext().getAuthentication().getAuthorities()
+                .contains(new SimpleGrantedAuthority("ROLE_ADMIN")) ? holidayService.findAll(): userService.findOne(
                 SecurityContextHolder.getContext().getAuthentication().getName())
                 .getRequests()
                 .stream().map(r ->(Holiday)r).collect(Collectors.toList());

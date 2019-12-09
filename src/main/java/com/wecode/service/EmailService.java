@@ -12,8 +12,6 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    //    @Autowired
-//    private SimpleMailMessage preConfiguredMessage;
     @Autowired
     private SimpleMailMessage message;
 
@@ -26,13 +24,5 @@ public class EmailService {
         mailSender.send(message);
     }
 
-    /**
-     * This method will send a pre-configured message
-     * */
-//    public void sendPreConfiguredMail(String message)
-//    {
-//        SimpleMailMessage mailMessage = new SimpleMailMessage(preConfiguredMessage);
-//        mailMessage.setText(message);
-//        mailSender.send(mailMessage);
-//    }
+
 }
