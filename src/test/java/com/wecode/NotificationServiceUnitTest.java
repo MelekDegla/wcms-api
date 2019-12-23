@@ -34,6 +34,8 @@ class NotificationServiceUnitTest {
         notification = new Notification();
         notification.setBody("Test");
         notification.setTitle("Title");
+        notification.setLink("link1");
+        notification.setViewed(true);
     }
 
     @Test
@@ -45,6 +47,7 @@ class NotificationServiceUnitTest {
         notificationRepository.save(notification);
         assertNotNull(notification.getBody());
         assertNotNull(notification.getTitle());
+        assertNotNull(notification.getLink());
 
 
 
@@ -52,7 +55,8 @@ class NotificationServiceUnitTest {
 
 
         assertEquals(not.getBody(), notification.getBody());
-        assertEquals(not.getBody(), notification.getBody());
+        assertEquals(not.getTitle(), notification.getTitle());
+        assertEquals(not.getLink(), notification.getLink());
 
     }
 
@@ -66,7 +70,8 @@ class NotificationServiceUnitTest {
 
 
         assertEquals(not.getBody(), notification.getBody());
-        assertEquals(not.getBody(), notification.getBody());
+        assertEquals(not.getLink(), notification.getLink());
+        assertEquals(not.getTitle(), notification.getTitle());
     }
 
     @Test
@@ -75,7 +80,9 @@ class NotificationServiceUnitTest {
         Notification not = notificationService.findById(notification.getId());
 
         assertEquals(not.getBody(), notification.getBody());
-        assertEquals(not.getBody(), notification.getBody());
+        assertEquals(not.getTitle(), notification.getTitle());
+        assertEquals(not.getLink(), notification.getLink());
+
     }
 
     @Test

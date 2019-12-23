@@ -3,13 +3,16 @@ package com.wecode.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
 public class Holiday extends Request {
 
+    @NotNull
     private String startDate;
 
+    @NotNull
     private String endDate;
     private  String reason ;
 

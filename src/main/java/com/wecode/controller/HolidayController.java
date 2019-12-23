@@ -96,4 +96,10 @@ public class HolidayController {
         return holidayService.update(holiday);
     }
 
+    // For Test
+    @GetMapping(value = "/holidays/enddate/{dt}")
+    public Holiday findByEndDate(@PathVariable(value = "dt") String dt){
+        return holidayService.findByEndDate(dt);
+    }
+
 }

@@ -22,6 +22,8 @@ public class Task {
     @NotNull
     @Size(min= 3, message = "Task Label Length Should Be at min 3 !")
     private String label;
+
+    @NotNull
     private String description;
     private String problem;
 

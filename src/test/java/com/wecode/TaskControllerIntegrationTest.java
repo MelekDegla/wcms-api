@@ -22,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class TaskControllerIntegrationTest {
 
     String url = "http://localhost:8091";
-    String authAdmin= "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNb250YXNzYXIiLCJzY29wZXMiOiJST0xFX0FETUlOIiwiaWF0IjoxNTc0OTU4MjEyLCJleHAiOjE1NzUwNDQ2MTJ9.UFOjsGTToDnLRJb-G2p7B2YFfEYJBD4k7pW-kEx4eQE";
-    String authNoadmin= "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aWVtIiwic2NvcGVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNTc0OTU5MTE0LCJleHAiOjE1NzUwNDU1MTR9.bIWf_UIhW1-I3YRlbYEIoVPUt_igYJPN5pkPoUmzgT0";
+    String authAdmin= "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJEZWdsYSIsInNjb3BlcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE1NzU4NDAxMTAsImV4cCI6MTU3NTkyNjUxMH0.WkOZzCdIahFXZJPU-tqwcdLzS65a-Szzh83JcgOY5Ow";
+    String authNoadmin= "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aWVtIiwic2NvcGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTU3NTg0MDA3NywiZXhwIjoxNTc1OTI2NDc3fQ.gtI6g8V95oHhWwCgg7GBYUHq3l_jsOQQS3ZeUqNgqXQ";
 
 
     @Mock
@@ -73,14 +73,14 @@ class TaskControllerIntegrationTest {
                url+"/tasks/2", HttpMethod.GET, new HttpEntity<Task>(null, headersAdmin), Task.class);
 
        assertNotNull(responseAdmin.getBody());
-       assertEquals("Task2", responseAdmin.getBody().getDescription());
+       assertEquals("NOfADMIN", responseAdmin.getBody().getDescription());
 
        // For No Admin Test
        HttpEntity<Task> responseNoAdmin = restTemplate.exchange(
                url+"/tasks/1", HttpMethod.GET, new HttpEntity<Task>(null, headersNoAdmin), Task.class);
 
        assertNotNull(responseNoAdmin.getBody());
-       assertEquals("Task2", responseAdmin.getBody().getDescription());
+       assertEquals("INTTest", responseAdmin.getBody().getDescription());
 
        // For No Auth Test
        HttpEntity<String> responseNoAuth = restTemplate.exchange(
